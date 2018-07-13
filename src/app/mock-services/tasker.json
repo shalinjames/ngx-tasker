@@ -1,0 +1,6 @@
+{
+  "boards": [
+    { "id": 1, "title": "Sample Board1", "lanes": [] },
+    { "id": 2, "title": "Sample Board2", "lanes": [] }
+  ]
+}
