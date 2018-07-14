@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { BoardListService } from "./board-list.service";
+import { StoreService } from "../store/store.service";
+import { stateType } from "../store/store";
 
 @Component({
   selector: "app-board-list",
@@ -8,11 +9,13 @@ import { BoardListService } from "./board-list.service";
   styleUrls: ["./board-list.component.css"]
 })
 export class BoardListComponent implements OnInit {
-  constructor(private boardList: BoardListService) {}
+  constructor(private storeService: StoreService) {}
   public boards = [];
 
   private getBoards() {
-    this.boardList.getBoards().subscribe(boards => (this.boards = boards));
+    this.storeService.store.subscribe(
+      (state: stateType) => (this.boards = state.boards)
+    );
   }
 
   ngOnInit() {
