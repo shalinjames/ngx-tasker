@@ -19,7 +19,6 @@ export class StoreService {
     this.store.next(state);
   }
   public setBoards(boards: Board[]) {
-    console.log(boards);
     this.boardsReducer(this.state, { type: "INIT", boards });
   }
 }
