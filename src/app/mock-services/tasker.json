@@ -1,6 +1,16 @@
 {
-  "boards": [
-    { "id": 1, "title": "Sample Board1", "lanes": [], "path": "sampleboard1" },
-    { "id": 2, "title": "Sample Board2", "lanes": [], "path": "sampleboard2" }
-  ]
+  "boards": {
+    "1": {
+      "id": 1,
+      "title": "Sample Board1",
+      "lanes": [],
+      "path": "sampleboard1"
+    },
+    "2": {
+      "id": 2,
+      "title": "Sample Board2",
+      "lanes": [],
+      "path": "sampleboard2"
+    }
+  }
 }
