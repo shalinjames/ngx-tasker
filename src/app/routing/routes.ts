@@ -2,18 +2,21 @@ import { Route } from "@angular/router";
 
 import { BoardListComponent } from "../board-list/board-list.component";
 import { BoardComponent } from "../board/board.component";
-import { BoardListResolverService } from "../board-list/board-list-resolver.service";
+import { DashboardComponent } from "../dashboard/dashboard.component";
 
 export const routes: Route[] = [
   {
     path: "",
-    redirectTo: "/boardlist",
+    redirectTo: "/dashboard",
     pathMatch: "full"
   },
   {
+    path: "dashboard",
+    component: DashboardComponent
+  },
+  {
     path: "boardlist",
-    component: BoardListComponent,
-    resolve: { boards: BoardListResolverService }
+    component: BoardListComponent
   },
   {
     path: "board/:path",

@@ -1,0 +1,6 @@
+<form *ngIf="showNew">
+  <label for="boardname"> Board Name
+  </label>
+  <input name="boardname" #boardName>
+</form>
+<button (click)="toggleNew()">{{showNew? "Close" : "Add New" }}</button>

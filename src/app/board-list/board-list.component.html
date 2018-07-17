@@ -1,9 +1,6 @@
-<pre>{{(boards$ | async|json)}}</pre>
-
 <ul *ngIf="boards$ | async as boards">
   <li *ngFor="let index of keys(boards)">
     <h2>
-      {{index}} -- {{boards[index] | json}}
       <a routerLink="/board/{{boards[index].path}}">{{boards[index].title}}</a>-->
     </h2>
   </li>

@@ -9,13 +9,17 @@ import { BoardComponent } from "./board/board.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { BoardListComponent } from "./board-list/board-list.component";
 import { BoardState } from "./store/board.state";
+import { NewBoardComponent } from './new-board/new-board.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     NavigationComponent,
-    BoardListComponent
+    BoardListComponent,
+    NewBoardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
