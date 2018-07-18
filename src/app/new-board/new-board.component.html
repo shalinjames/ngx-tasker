@@ -1,6 +1,6 @@
 <form *ngIf="showNew">
   <label for="boardname"> Board Name
   </label>
-  <input name="boardname" #boardName>
+  <input #boardName (keyup.enter)="onEnter(boardName.value)" (keyup.escape)="toggleNew()">
 </form>
 <button (click)="toggleNew()">{{showNew? "Close" : "Add New" }}</button>
