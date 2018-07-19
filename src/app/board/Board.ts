@@ -3,3 +3,7 @@ export class Board {
   title: string;
   lanes: object;
 }
+
+export class Boards {
+  [param: string]: Board;
+}

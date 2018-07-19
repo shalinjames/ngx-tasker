@@ -12,5 +12,12 @@
       "lanes": [],
       "path": "sampleboard2"
     }
-  }
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Shalin James",
+      "boards": [1, 2]
+    }
+  ]
 }

@@ -9,14 +9,14 @@ import { AddBoard } from "../store/board.actions";
   styleUrls: ["./new-board.component.css"]
 })
 export class NewBoardComponent implements OnInit {
-  constructor(private str: Store) {}
+  constructor(private store: Store) {}
   public showNew = false;
   public toggleNew() {
     this.showNew = !this.showNew;
   }
   onEnter(boardName: string) {
-    this.str.dispatch(new AddBoard(boardName));
-    console.log("New Board Name", boardName);
+    this.store.dispatch(new AddBoard(boardName));
+    this.toggleNew();
   }
   ngOnInit() {}
 }

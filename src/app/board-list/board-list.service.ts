@@ -1,19 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
-import { Board } from "../board/Board";
+import { Board, Boards } from "../board/Board";
+import { generateEndPoint } from "../common/utils";
 
 @Injectable({
   providedIn: "root"
 })
 export class BoardListService {
-  public baseUrl = "http://localhost:3000";
   constructor(private httpCli: HttpClient) {}
-  public requestEndPoint(endPoint) {
-    return `${this.baseUrl}/${endPoint}`;
-  }
-  public getBoards(): Observable<Board[]> {
-    return this.httpCli.get<Board[]>(this.requestEndPoint("boards"));
+
+  public getBoards(): Observable<Boards> {
+    return this.httpCli.get<Boards>(generateEndPoint("boards"));
   }
 }
