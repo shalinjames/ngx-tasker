@@ -8,16 +8,18 @@ import { UsersService } from "../webservices/users.service";
 
 export class BoardStateModel {
   boards: Boards;
-  user: {};
-  userboards: Board[];
+  user: {
+    boards: Array<number>;
+  };
 }
 
 @State<BoardStateModel>({
   name: "boardState",
   defaults: {
     boards: {},
-    user: {},
-    userboards: []
+    user: {
+      boards: []
+    }
   }
 })
 export class BoardState implements NgxsOnInit {
@@ -37,20 +39,16 @@ export class BoardState implements NgxsOnInit {
 
     this.userService.get().subscribe(user => {
       ctx.patchState({ user });
-      user.boards.forEach(boardId => {
-        ctx.patchState({
-          userboards: [
-            ...ctx.getState().userboards,
-            ctx.getState().boards[boardId]
-          ]
-        });
-      });
     });
   }
 
   @Selector()
   static getBoards(state: BoardStateModel) {
-    return state.boards;
+    const boards = {};
+    state.user.boards.map(board => {
+      boards[board] = state.boards[board];
+    });
+    return boards;
   }
   @Action(AddBoard)
   addBoard(ctx: StateContext<BoardStateModel>, action: AddBoard) {
@@ -60,6 +58,10 @@ export class BoardState implements NgxsOnInit {
       boards: {
         ...state.boards,
         [id]: { id, title: action.name, lanes: [], path: id }
+      },
+      user: {
+        ...state.user,
+        boards: [...state.user.boards, id]
       }
     });
   }
