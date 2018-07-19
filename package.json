@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "init-db": "json-server --watch src/app/mock-services/tasker.json"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@ngxs/devtools-plugin": "^3.2.0",
     "@ngxs/store": "^3.2.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.2.1",

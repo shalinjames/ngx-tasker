@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { NgxsModule } from "@ngxs/store";
 import { FormsModule } from "@angular/forms";
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { AppRoutingModule } from "./routing/app-routing.module";
 import { AppComponent } from "./app.component";
@@ -27,7 +28,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    NgxsModule.forRoot([BoardState])
+    NgxsModule.forRoot([BoardState]),
+    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
