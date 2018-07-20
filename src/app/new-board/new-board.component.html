@@ -1,6 +1,16 @@
-<form *ngIf="showNew">
-  <label for="boardname"> Board Name
-  </label>
-  <input #boardName (keyup.enter)="onEnter(boardName.value)" (keyup.escape)="toggleNew()">
-</form>
-<button (click)="toggleNew()">{{showNew? "Close" : "Add New" }}</button>
+<mat-accordion class="add-new-board">
+  <mat-expansion-panel [expanded]="showPanel === true" (opened)="toggleNew()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add New Board
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput #boardName (keyup.enter)="onEnter(boardName.value); boardName.value=''" (keyup.escape)="toggleNew()" placeholder="Board Name">
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-form-field *ngIf="showNew">
+</mat-form-field>

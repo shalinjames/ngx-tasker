@@ -1,3 +1,17 @@
-<p>
-  navigation works!
-</p>
+<div>
+  <mat-toolbar color="primary">
+
+    <span class="center">Task Board</span>
+
+    <span>
+      <button mat-icon-button [mat-menu-trigger-for]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </span>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item>Option 1</button>
+    <button mat-menu-item>Option 2</button>
+  </mat-menu>
+
+</div>

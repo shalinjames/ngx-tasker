@@ -10,9 +10,9 @@ import { AddBoard } from "../store/board.actions";
 })
 export class NewBoardComponent implements OnInit {
   constructor(private store: Store) {}
-  public showNew = false;
+  public showPanel = false;
   public toggleNew() {
-    this.showNew = !this.showNew;
+    this.showPanel = !this.showPanel;
   }
   onEnter(boardName: string) {
     this.store.dispatch(new AddBoard(boardName));

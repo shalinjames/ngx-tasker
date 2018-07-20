@@ -1,7 +1,7 @@
-<ul *ngIf="boards$ | async as boards">
-  <li *ngFor="let index of keys(boards)">
-    <h2>
-      <a routerLink="/board/{{boards[index].path}}">{{boards[index].title}}</a>
-    </h2>
-  </li>
-</ul>
+<div class="board-list" *ngIf="boards$ | async as boards">
+  <mat-card class="board-card" *ngFor="let index of keys(boards)" routerLink="/board/{{boards[index].path}}">
+    <mat-card-title>
+      {{boards[index].title}}
+    </mat-card-title>
+  </mat-card>
+</div>
