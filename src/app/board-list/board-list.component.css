@@ -1,6 +1,6 @@
 .board-card {
-  max-width: 15rem;
-  min-height: 5rem;
+  width: 15rem;
+  height: 1rem;
   margin: 0.8rem;
   margin-left: 0;
   display: inline-block;
@@ -9,4 +9,11 @@
 
 .board-card a {
   text-decoration: none;
+}
+
+.board-card .title {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
