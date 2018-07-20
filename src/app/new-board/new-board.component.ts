@@ -18,11 +18,12 @@ export class NewBoardComponent implements OnInit {
   }
 
   openNewBoardDialog() {
-    const dialogRef = this.dialog.open(NewboardDialogComponent, {
-      data: { boardname: "" }
-    });
+    const dialogRef = this.dialog.open(NewboardDialogComponent);
+
     dialogRef.afterClosed().subscribe(result => {
-      this.addBoard(result);
+      if (result) {
+        this.addBoard(result);
+      }
     });
   }
   ngOnInit() {}
