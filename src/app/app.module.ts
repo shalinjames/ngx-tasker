@@ -15,6 +15,7 @@ import { BoardState } from "./store/board.state";
 import { NewBoardComponent } from "./new-board/new-board.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { MaterialModuleModule } from "./material-module/material-module.module";
+import { NewboardDialogComponent } from "./new-board/newboard-dialog/newboard-dialog.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MaterialModuleModule } from "./material-module/material-module.module";
     NavigationComponent,
     BoardListComponent,
     NewBoardComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewboardDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { MaterialModuleModule } from "./material-module/material-module.module";
     MaterialModuleModule,
     BrowserAnimationsModule
   ],
+  entryComponents: [NewboardDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

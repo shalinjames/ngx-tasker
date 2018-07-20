@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Add a new board</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput #boardName placeholder="Board Name" (keyup.enter)="onEnter(boardName.value)" cdkFocusInitial>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="boardName.value">Add</button>
+  <button mat-button (click)="close()">Cancel</button>
+</div>

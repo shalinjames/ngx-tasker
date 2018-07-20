@@ -3,3 +3,10 @@
   margin-top: 2em;
   width: 30rem;
 }
+
+.done {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
