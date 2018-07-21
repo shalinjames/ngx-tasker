@@ -3,7 +3,10 @@
     "1": {
       "id": 1,
       "title": "Sample Board1",
-      "list": [{ "title": "List 1", "position": 0 }],
+      "list": {
+        "list1": { "title": "List 1" },
+        "list2": { "title": "List 2" }
+      },
       "path": "sampleboard1"
     },
     "2": {

@@ -15,6 +15,7 @@ export class BoardComponent implements OnInit {
 
   constructor() {}
 
+  public keys = Object.keys;
   public board: Board;
 
   ngOnInit() {

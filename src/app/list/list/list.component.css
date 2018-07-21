@@ -1,0 +1,15 @@
+.list-card {
+  display: inline-block;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0.8rem;
+  width: 15rem;
+}
+
+.list-card .title {
+  font-weight: bold;
+}
+
+.list-card .contents {
+  margin-top: 2rem;
+}

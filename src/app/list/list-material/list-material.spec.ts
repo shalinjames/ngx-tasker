@@ -1,10 +1,10 @@
-import { BoardMaterialModule } from "./board-material.module";
+import { ListMaterialModule } from "./list-material.module";
 
 describe("MaterialModuleModule", () => {
-  let materialModuleModule: BoardMaterialModule;
+  let materialModuleModule: ListMaterialModule;
 
   beforeEach(() => {
-    materialModuleModule = new BoardMaterialModule();
+    materialModuleModule = new ListMaterialModule();
   });
 
   it("should create an instance", () => {

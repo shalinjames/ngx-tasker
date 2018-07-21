@@ -1,15 +1,6 @@
-<div class="list-container" *ngIf="board">
-  <div class="list-header">{{board.title}}</div>
+<div class="board-container" *ngIf="board.list">
+  <div class="board-header">{{board.title}}</div>
   <div class="list">
-    <mat-card class="list-card" *ngFor="let key of board.list">
-      <mat-card-header>
-        <mat-card-title class="title">
-          List Title
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        Contents
-      </mat-card-content>
-    </mat-card>
+    <ngx-tasker-list *ngFor="let key of keys(board.list)" [list]="board.list[key]"></ngx-tasker-list>
   </div>
 </div>
