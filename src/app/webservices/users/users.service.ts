@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-import { generateEndPoint } from "../common/utils";
+import { generateEndPoint } from "../../common/utils";
 
 type UserType = {
   id: number;

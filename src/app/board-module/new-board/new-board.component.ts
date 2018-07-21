@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { Store } from "@ngxs/store";
-import { AddBoard } from "../store/board.actions";
+import { AddBoard } from "../../store/board.actions";
 import { NewboardDialogComponent } from "./newboard-dialog/newboard-dialog.component";
 
 @Component({

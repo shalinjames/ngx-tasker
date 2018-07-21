@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
-import { Board, Boards } from "../types";
-import { generateEndPoint } from "../common/utils";
+import { Board, Boards } from "../../types";
+import { generateEndPoint } from "../../common/utils";
 
 @Injectable({
   providedIn: "root"

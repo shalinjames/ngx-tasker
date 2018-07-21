@@ -1,19 +1,21 @@
 import { NgModule } from "@angular/core";
 import {
   MatButtonModule,
-  MatMenuModule,
-  MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatCardModule,
+  MatInputModule,
+  MatDialogModule
 } from "@angular/material";
 
 const includes = [
   MatButtonModule,
-  MatMenuModule,
-  MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatCardModule,
+  MatInputModule,
+  MatDialogModule
 ];
 @NgModule({
   imports: includes,
   exports: includes
 })
-export class MaterialModuleModule {}
+export class BoardMaterialModule {}

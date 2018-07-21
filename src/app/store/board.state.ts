@@ -3,8 +3,8 @@ import uuidv4 from "uuid/v4";
 
 import { Board, Boards } from "../types";
 import { AddBoard, SelectBoard } from "./board.actions";
-import { BoardListService } from "../board-list/board-list.service";
-import { UsersService } from "../webservices/users.service";
+import { BoardListService } from "../webservices/boardlist/board-list.service";
+import { UsersService } from "../webservices/users/users.service";
 
 export class BoardStateModel {
   boards: Boards;

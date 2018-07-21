@@ -3,9 +3,9 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { Store, Select } from "@ngxs/store";
 
-import { BoardState } from "../store/board.state";
-import { SelectBoard } from "../store/board.actions";
-import { Board } from "../types";
+import { BoardState } from "../../store/board.state";
+import { SelectBoard } from "../../store/board.actions";
+import { Board } from "../../types";
 
 @Component({
   selector: "app-board-list",
@@ -17,12 +17,11 @@ export class BoardListComponent {
   constructor(private router: Router, private store: Store) {}
   public keys = Object.keys;
 
-  private navigate(path) {
-    //routerLink="/board/{{boards[index].path}}"
-    this.router.navigate([`/board/${path}`]);
+  private navigate() {
+    this.router.navigate(["/board"]);
   }
   public selectBoard(board: Board) {
     this.store.dispatch(new SelectBoard(board));
-    this.navigate(board.path);
+    this.navigate();
   }
 }
