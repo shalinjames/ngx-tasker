@@ -1,28 +1,28 @@
-import { Component, OnInit } from "@angular/core";
-
-//import { StoreService } from "../store/store.service";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { Store, Select } from "@ngxs/store";
+
 import { BoardState } from "../store/board.state";
-import { stateType } from "../store/store";
-import { Observable } from "../../../node_modules/rxjs";
+import { SelectBoard } from "../store/board.actions";
+import { Board } from "../types";
 
 @Component({
   selector: "app-board-list",
   templateUrl: "./board-list.component.html",
   styleUrls: ["./board-list.component.css"]
 })
-export class BoardListComponent implements OnInit {
+export class BoardListComponent {
   @Select(BoardState.getBoards) boards$: Observable<any>;
-  constructor() {}
+  constructor(private router: Router, private store: Store) {}
   public keys = Object.keys;
 
-  // private getBoards() {
-  //   this.storeService.store.subscribe((state: stateType) => {
-  //     this.boards = state.boards;
-  //   });
-  // }
-  ngOnInit() {
-    //this.boards$.subscribe(boards => console.log("ngOnInit", boards));
-    //this.getBoards();
+  private navigate(path) {
+    //routerLink="/board/{{boards[index].path}}"
+    this.router.navigate([`/board/${path}`]);
+  }
+  public selectBoard(board: Board) {
+    this.store.dispatch(new SelectBoard(board));
+    this.navigate(board.path);
   }
 }

@@ -1,8 +1,11 @@
-export class GetBoards {
-  static readonly type = "GetBoards";
-}
+import { Board } from "../types";
 
 export class AddBoard {
-  static readonly type = "AddBoard";
+  static readonly type = "[Boards] AddBoard";
   constructor(public name: string) {}
+}
+
+export class SelectBoard {
+  static readonly type = "[Boards] Set selected board";
+  constructor(public selectedBoard: Board) {}
 }

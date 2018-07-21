@@ -3,13 +3,13 @@
     "1": {
       "id": 1,
       "title": "Sample Board1",
-      "lanes": [],
+      "list": [{ "title": "List 1", "position": 0 }],
       "path": "sampleboard1"
     },
     "2": {
       "id": 2,
       "title": "Sample Board2",
-      "lanes": [],
+      "list": [],
       "path": "sampleboard2"
     }
   },

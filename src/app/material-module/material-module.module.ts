@@ -8,7 +8,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatExpansionModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDividerModule,
+  MatListModule
 } from "@angular/material";
 
 const includes = [
@@ -20,7 +22,9 @@ const includes = [
   MatFormFieldModule,
   MatInputModule,
   MatExpansionModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDividerModule,
+  MatListModule
 ];
 @NgModule({
   imports: includes,

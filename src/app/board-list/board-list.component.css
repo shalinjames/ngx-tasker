@@ -5,6 +5,7 @@
   margin-left: 0;
   display: inline-block;
   cursor: pointer;
+  border-radius: 0.4rem;
 }
 
 .board-card a {

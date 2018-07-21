@@ -1,4 +1,4 @@
-import { Board } from "../board/Board";
+import { Board } from "../types";
 
 export type stateType = {
   boards?: Board[];

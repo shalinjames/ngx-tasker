@@ -1,8 +1,8 @@
 import { State, Action, StateContext, NgxsOnInit, Selector } from "@ngxs/store";
 import uuidv4 from "uuid/v4";
 
-import { Board, Boards } from "../board/Board";
-import { AddBoard } from "./board.actions";
+import { Board, Boards } from "../types";
+import { AddBoard, SelectBoard } from "./board.actions";
 import { BoardListService } from "../board-list/board-list.service";
 import { UsersService } from "../webservices/users.service";
 
@@ -11,6 +11,7 @@ export class BoardStateModel {
   user: {
     boards: Array<number>;
   };
+  selectedboard: Board;
 }
 
 @State<BoardStateModel>({
@@ -19,7 +20,8 @@ export class BoardStateModel {
     boards: {},
     user: {
       boards: []
-    }
+    },
+    selectedboard: null
   }
 })
 export class BoardState implements NgxsOnInit {
@@ -65,6 +67,20 @@ export class BoardState implements NgxsOnInit {
       }
     });
   }
-}
 
-1;
+  @Action(SelectBoard)
+  selectBoard(
+    { getState, patchState }: StateContext<BoardStateModel>,
+    action: SelectBoard
+  ) {
+    const state = getState();
+    patchState({
+      selectedboard: action.selectedBoard
+    });
+  }
+
+  @Selector()
+  static getSelectedBoard(state: BoardStateModel) {
+    return state.selectedboard;
+  }
+}

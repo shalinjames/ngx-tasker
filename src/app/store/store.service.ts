@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 
 import { actionType, stateType } from "./store";
-import { Board } from "../board/Board";
+import { Board } from "../types";
 
 @Injectable({
   providedIn: "root"

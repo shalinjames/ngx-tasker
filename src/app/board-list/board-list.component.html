@@ -1,8 +1,8 @@
 <div class="board-list" *ngIf="boards$ | async as boards">
-  <mat-card class="board-card" *ngFor="let index of keys(boards)" routerLink="/board/{{boards[index].path}}">
+  <mat-card class="board-card" *ngFor="let index of keys(boards)" (click)="selectBoard(boards[index])">
     <mat-card-header>
       <div mat-card-avatar>
-        <mat-icon>list</mat-icon>
+        <mat-icon>dashboard</mat-icon>
       </div>
       <mat-card-title class="title">
         {{boards[index].title}}

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
-import { Board, Boards } from "../board/Board";
+import { Board, Boards } from "../types";
 import { generateEndPoint } from "../common/utils";
 
 @Injectable({
