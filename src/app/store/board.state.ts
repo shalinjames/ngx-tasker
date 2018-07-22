@@ -11,7 +11,7 @@ export class BoardStateModel {
   user: {
     boards: Array<number>;
   };
-  selectedboard: Board;
+  selectedboard: string;
 }
 
 @State<BoardStateModel>({
@@ -75,12 +75,12 @@ export class BoardState implements NgxsOnInit {
   ) {
     const state = getState();
     patchState({
-      selectedboard: action.selectedBoard
+      selectedboard: action.selectedBoardId
     });
   }
 
   @Selector()
   static getSelectedBoard(state: BoardStateModel) {
-    return state.selectedboard;
+    return state.boards[state.selectedboard];
   }
 }
