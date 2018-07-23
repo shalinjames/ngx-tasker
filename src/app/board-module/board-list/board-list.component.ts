@@ -21,7 +21,7 @@ export class BoardListComponent {
     this.router.navigate(["/board"]);
   }
   public selectBoard(board: Board) {
-    this.store.dispatch(new SelectBoard(board));
+    this.store.dispatch(new SelectBoard(board.id));
     this.navigate();
   }
 }

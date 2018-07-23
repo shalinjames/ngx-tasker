@@ -7,5 +7,10 @@ export class AddBoard {
 
 export class SelectBoard {
   static readonly type = "[Boards] Set selected board";
-  constructor(public selectedBoard: Board) {}
+  constructor(public selectedBoardId: string) {}
+}
+
+export class SetListTitle {
+  static readonly type = "[List] Set list title";
+  constructor(public title: string, public listId: string) {}
 }
