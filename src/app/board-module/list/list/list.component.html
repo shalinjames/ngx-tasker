@@ -4,7 +4,7 @@
       <span *ngIf="!editTitle" (click)="editTitle = true">{{list.title}}</span>
       <span *ngIf="editTitle">
         <mat-form-field class="title-edit-from">
-          <input matInput #title value="{{list.title}}" (keyevent.enter)="saveTitle(title.value, list.id)" cdkFocusInitial />
+          <input matInput #title value="{{list.title}}" (keyup.enter)="saveTitle(title.value, list.id)" cdkFocusInitial />
           <mat-icon (click)="editTitle = false">clear</mat-icon>
         </mat-form-field>
       </span>

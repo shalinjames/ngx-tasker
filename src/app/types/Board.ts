@@ -1,7 +1,7 @@
 export class Board {
   id: string;
   title: string;
-  lanes: object;
+  list: object;
   path: string;
 }
 

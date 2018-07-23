@@ -12,5 +12,5 @@ export class SelectBoard {
 
 export class SetListTitle {
   static readonly type = "[List] Set list title";
-  constructor(public title: string) {}
+  constructor(public title: string, public listId: string) {}
 }

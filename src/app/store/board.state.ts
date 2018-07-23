@@ -11,7 +11,7 @@ export class BoardStateModel {
   user: {
     boards: Array<number>;
   };
-  selectedboard: string;
+  selectedboardId: string;
 }
 
 @State<BoardStateModel>({
@@ -21,7 +21,7 @@ export class BoardStateModel {
     user: {
       boards: []
     },
-    selectedboard: null
+    selectedboardId: null
   }
 })
 export class BoardState implements NgxsOnInit {
@@ -75,20 +75,35 @@ export class BoardState implements NgxsOnInit {
   ) {
     const state = getState();
     patchState({
-      selectedboard: action.selectedBoardId
+      selectedboardId: action.selectedBoardId
     });
   }
 
   @Selector()
   static getSelectedBoard(state: BoardStateModel) {
-    return state.boards[state.selectedboard];
+    return state.boards[state.selectedboardId];
   }
   @Action(SetListTitle)
-  private setListTitle(
-    { getState, patchState }: StateContext<BoardState>,
+  setListTitle(
+    { getState, patchState }: StateContext<BoardStateModel>,
     action: SetListTitle
   ) {
     const state = getState();
-    patchState({});
+    const selectedBoard = state.boards[state.selectedboardId];
+    const selectedList = state.boards[state.selectedboardId].list;
+    patchState({
+      boards: {
+        ...state.boards,
+        [state.selectedboardId]: {
+          ...selectedBoard,
+          list: {
+            ...selectedList,
+            [action.listId]: {
+              title: action.title
+            }
+          }
+        }
+      }
+    });
   }
 }
