@@ -1,12 +1,10 @@
 <mat-card class="list-card">
-  <mat-card-header>
+  <mat-card-header class="header" (click)="toggleEditTitle()">
     <mat-card-title class="title">
-      <span *ngIf="!editTitle" (click)="editTitle = true">{{list.title}}</span>
-      <span *ngIf="editTitle">
-        <mat-form-field class="title-edit-from">
-          <input matInput #title value="{{list.title}}" (keyup.enter)="saveTitle(title.value, list.id)" cdkFocusInitial />
-          <mat-icon (click)="editTitle = false">clear</mat-icon>
-        </mat-form-field>
+      <span *ngIf="!editTitle">{{list.title}}</span>
+      <span>
+        <input autofocus *ngIf="editTitle" type="text" #title value="{{list.title}}" (keyup.enter)="saveTitle(title.value, list.id)"
+          (keyup.escape)="toggleEditTitle()" (blur)="toggleEditTitle()" />
       </span>
     </mat-card-title>
   </mat-card-header>
