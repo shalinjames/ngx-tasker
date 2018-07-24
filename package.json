@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "concurrently --kill-others \"npm run init-db\" \"npm run dev\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "init-db": "json-server --watch src/app/mock-services/tasker.json",
-    "dev": "concurrently --kill-others \"npm run init-db\" \"npm start\""
+    "dev": "ng serve --open"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "@ngxs/devtools-plugin": "^3.2.0",
     "@ngxs/storage-plugin": "^3.2.0",
     "@ngxs/store": "^3.2.0",
+    "angular-autofocus-fix": "^0.1.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.2.1",
     "uuid": "^3.3.2",
