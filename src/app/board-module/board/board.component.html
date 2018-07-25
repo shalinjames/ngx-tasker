@@ -1,5 +1,8 @@
 <div class="board-container" *ngIf="board.list">
-  <div class="board-header">{{board.title}}</div>
+  <div class="board-header">
+    <ngxtasker-inline-text-editor [value]="board.title" (newvalue)="saveBoardTitle($event)">
+    </ngxtasker-inline-text-editor>
+  </div>
   <div class="list">
     <ngx-tasker-list *ngFor="let key of keys(board.list)" [list]="board.list[key]" [id]="key"></ngx-tasker-list>
   </div>

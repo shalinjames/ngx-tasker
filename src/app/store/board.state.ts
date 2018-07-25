@@ -2,7 +2,12 @@ import { State, Action, StateContext, NgxsOnInit, Selector } from "@ngxs/store";
 import uuidv4 from "uuid/v4";
 
 import { Board, Boards } from "../types";
-import { AddBoard, SelectBoard, SetListTitle } from "./board.actions";
+import {
+  AddBoard,
+  SelectBoard,
+  SetListTitle,
+  SetBoardTitle
+} from "./board.actions";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { UsersService } from "../webservices/users/users.service";
 
@@ -102,6 +107,24 @@ export class BoardState implements NgxsOnInit {
               title: action.title
             }
           }
+        }
+      }
+    });
+  }
+
+  @Action(SetBoardTitle)
+  setBoardTItle(
+    { getState, patchState }: StateContext<BoardStateModel>,
+    action: SetBoardTitle
+  ) {
+    const state = getState();
+    const selectedBoard = state.boards[state.selectedboardId];
+    patchState({
+      boards: {
+        ...state.boards,
+        [state.selectedboardId]: {
+          ...selectedBoard,
+          title: action.title
         }
       }
     });

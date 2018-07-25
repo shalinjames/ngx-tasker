@@ -1,11 +1,8 @@
 <mat-card class="list-card">
-  <mat-card-header class="header" (click)="toggleEditTitle()">
+  <mat-card-header class="header">
     <mat-card-title class="title">
-      <span *ngIf="!editTitle">{{list.title}}</span>
-      <span>
-        <input autofocus *ngIf="editTitle" type="text" #title value="{{list.title}}" (keyup.enter)="saveTitle(title.value, list.id)"
-          (keyup.escape)="toggleEditTitle()" (blur)="toggleEditTitle()" />
-      </span>
+      <ngxtasker-inline-text-editor [value]="list.title" (newvalue)="saveTitle($event)">
+      </ngxtasker-inline-text-editor>
     </mat-card-title>
   </mat-card-header>
   <mat-divider [inset]="true" class="seperator"></mat-divider>

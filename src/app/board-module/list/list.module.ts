@@ -1,14 +1,13 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { AutofocusModule } from "angular-autofocus-fix";
 
 import { ListComponent } from "./list/list.component";
 import { ListMaterialModule } from "./list-material";
+import { AppCommonModule } from "../../app.common.module";
 
 @NgModule({
-  imports: [CommonModule, ListMaterialModule, AutofocusModule],
+  imports: [CommonModule, ListMaterialModule, AppCommonModule],
   declarations: [ListComponent],
-  exports: [ListComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [ListComponent]
 })
 export class ListModule {}
