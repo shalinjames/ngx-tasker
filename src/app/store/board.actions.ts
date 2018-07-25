@@ -14,3 +14,8 @@ export class SetListTitle {
   static readonly type = "[List] Set list title";
   constructor(public title: string, public listId: string) {}
 }
+
+export class SetBoardTitle {
+  static readonly type = "[Board] Set board title";
+  constructor(public title: string) {}
+}

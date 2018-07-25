@@ -9,13 +9,15 @@ import { BoardListComponent } from "./board-list/board-list.component";
 import { NewBoardComponent } from "./new-board/new-board.component";
 import { NewboardDialogComponent } from "./new-board/newboard-dialog/newboard-dialog.component";
 import { ListModule } from "./list";
+import { AppCommonModule } from "../app.common.module";
 
 @NgModule({
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     BoardMaterialModule,
-    ListModule
+    ListModule,
+    AppCommonModule
   ],
   exports: [BoardListComponent, NewBoardComponent, RouterModule],
   declarations: [
