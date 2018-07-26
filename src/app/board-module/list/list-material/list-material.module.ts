@@ -3,14 +3,16 @@ import {
   MatCardModule,
   MatDividerModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatButtonModule
 } from "@angular/material";
 
 const includes = [
   MatCardModule,
   MatDividerModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatButtonModule
 ];
 @NgModule({
   imports: includes,
