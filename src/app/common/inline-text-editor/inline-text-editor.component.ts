@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 
 @Component({
-  selector: "ngxtasker-inline-text-editor",
+  selector: "ngx-tasker-inline-text-editor",
   templateUrl: "./inline-text-editor.component.html",
   styleUrls: ["./inline-text-editor.component.css"]
 })
