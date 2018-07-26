@@ -8,8 +8,9 @@
 
 .board-header {
   margin: 1rem;
-  text-align: center;
   color: rgba(0, 0, 0, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .list {
@@ -19,7 +20,7 @@
   overflow-y: hidden;
   padding-bottom: 8px;
   position: absolute;
-  top: 15vh;
+  top: 16vh;
   right: 0;
   bottom: 0;
   left: 0;
