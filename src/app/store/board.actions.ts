@@ -10,12 +10,16 @@ export class SelectBoard {
   constructor(public selectedBoardId: string) {}
 }
 
+export class SetBoardTitle {
+  static readonly type = "[Board] Set board title";
+  constructor(public title: string) {}
+}
 export class SetListTitle {
   static readonly type = "[List] Set list title";
   constructor(public title: string, public listId: string) {}
 }
 
-export class SetBoardTitle {
-  static readonly type = "[Board] Set board title";
+export class AddListType {
+  static readonly type = "[List] Set board title";
   constructor(public title: string) {}
 }
