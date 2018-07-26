@@ -6,7 +6,8 @@ import {
   AddBoard,
   SelectBoard,
   SetListTitle,
-  SetBoardTitle
+  SetBoardTitle,
+  AddListType
 } from "./board.actions";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { UsersService } from "../webservices/users/users.service";
@@ -125,6 +126,29 @@ export class BoardState implements NgxsOnInit {
         [state.selectedboardId]: {
           ...selectedBoard,
           title: action.title
+        }
+      }
+    });
+  }
+  @Action(AddListType)
+  addListType(
+    { getState, patchState }: StateContext<BoardStateModel>,
+    action: AddListType
+  ) {
+    const state = getState();
+    const selectedBoard = state.boards[state.selectedboardId];
+    const id = uuidv4();
+    patchState({
+      boards: {
+        ...state.boards,
+        [state.selectedboardId]: {
+          ...selectedBoard,
+          list: {
+            ...selectedBoard.list,
+            [id]: {
+              title: action.title
+            }
+          }
         }
       }
     });
