@@ -16,18 +16,13 @@ export class AddListComponent {
   ngOnInit() {}
 
   saveNewListTitle(newTitle) {
-    this.openTextInput = !this.openTextInput;
-    this.store.dispatch(new AddListType(newTitle));
-  }
-
-  openNewListText() {
-    this.openTextInput = !this.openTextInput;
-  }
-
-  isNewListEditClosed(isClosed) {
-    console.log("isClosed", isClosed);
-    if (isClosed) {
-      this.openNewListText();
+    if (newTitle) {
+      this.openTextInput = !this.openTextInput;
+      this.store.dispatch(new AddListType(newTitle));
     }
+  }
+
+  toggleListTextEdit() {
+    this.openTextInput = !this.openTextInput;
   }
 }
