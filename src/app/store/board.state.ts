@@ -5,8 +5,8 @@ import { Board, Boards } from "../types";
 import {
   AddBoard,
   SelectBoard,
-  SetListTitle,
-  SetBoardTitle,
+  UpdateListTitle,
+  UpdateBoardTitle,
   AddListType
 } from "./board.actions";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
@@ -89,10 +89,10 @@ export class BoardState implements NgxsOnInit {
   static getSelectedBoard(state: BoardStateModel) {
     return state.boards[state.selectedboardId];
   }
-  @Action(SetListTitle)
+  @Action(UpdateListTitle)
   setListTitle(
     { getState, patchState }: StateContext<BoardStateModel>,
-    action: SetListTitle
+    action: UpdateListTitle
   ) {
     const state = getState();
     const selectedBoard = state.boards[state.selectedboardId];
@@ -113,10 +113,10 @@ export class BoardState implements NgxsOnInit {
     });
   }
 
-  @Action(SetBoardTitle)
+  @Action(UpdateBoardTitle)
   setBoardTItle(
     { getState, patchState }: StateContext<BoardStateModel>,
-    action: SetBoardTitle
+    action: UpdateBoardTitle
   ) {
     const state = getState();
     const selectedBoard = state.boards[state.selectedboardId];

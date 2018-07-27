@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 import { BoardState } from "../../store/board.state";
 import { Board } from "../../types";
-import { SetBoardTitle } from "../../store/board.actions";
+import { UpdateBoardTitle } from "../../store/board.actions";
 
 @Component({
   selector: "app-board",
@@ -23,6 +23,6 @@ export class BoardComponent implements OnInit {
     this.board$.subscribe(board => (this.board = board));
   }
   public saveBoardTitle(newTitle) {
-    this.store.dispatch(new SetBoardTitle(newTitle));
+    this.store.dispatch(new UpdateBoardTitle(newTitle));
   }
 }

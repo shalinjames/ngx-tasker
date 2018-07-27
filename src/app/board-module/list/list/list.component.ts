@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Store } from "@ngxs/store";
 
 import { ListEntry } from "../../../types";
-import { SetListTitle } from "../../../store/board.actions";
+import { UpdateListTitle } from "../../../store/board.actions";
 
 @Component({
   selector: "ngx-tasker-list",
@@ -19,7 +19,7 @@ export class ListComponent {
 
   saveTitle(newTitle) {
     this.store
-      .dispatch(new SetListTitle(newTitle, this.id))
+      .dispatch(new UpdateListTitle(newTitle, this.id))
       .subscribe(_ => (this.editTitle = false));
   }
 

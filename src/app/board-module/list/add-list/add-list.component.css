@@ -4,3 +4,10 @@
   width: 15rem;
   vertical-align: top;
 }
+
+.input-list-name {
+  border-radius: 0.2em;
+  padding: 0.3rem;
+  border: 1px solid #5c6bc0;
+  box-shadow: 0 0 2px 0 #1a237e;
+}

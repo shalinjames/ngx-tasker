@@ -1,7 +1,10 @@
 <div class="inline-text-editor">
-  <div class="text" *ngIf="!editTitle" (click)="toggleEditTitle()">{{value}}</div>
+  <div class="text" *ngIf="!editTitle" (click)="toggleEditTitle(true)">{{value}}</div>
   <span class="input">
-    <input autofocus *ngIf="editTitle" type="text" #title value="{{value}}" (keyup.enter)="onEnter(title.value)" (keyup.escape)="toggleEditTitle()"
-      (blur)="toggleEditTitle()" />
+    <label *ngIf="label">
+      <h4>{{label}}</h4>
+    </label>
+    <input autofocus type="text" placeholder="{{placeholder}}" *ngIf="editTitle" type="text" #title value="{{value}}" (keyup.enter)="onEnter(title.value)"
+      (keyup.escape)="cancelEdit()" (blur)="cancelEdit()" />
   </span>
 </div>
