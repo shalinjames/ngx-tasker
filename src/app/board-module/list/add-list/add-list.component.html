@@ -1,6 +1,8 @@
 <div class="add-list-container">
-  <button mat-fab color="primary">
+  <button mat-fab color="primary" *ngIf="!openTextInput" (click)="openNewListText()">
     <mat-icon>add</mat-icon>
   </button>
-
+  <ngx-tasker-inline-text-editor *ngIf="openTextInput" [open]="openTextInput" (newvalue)="saveNewListTitle($event)" (closed)="isNewListEditClosed($event)"
+    [placeholder]="'New List Title'" [label]="'List Name'">
+  </ngx-tasker-inline-text-editor>
 </div>
