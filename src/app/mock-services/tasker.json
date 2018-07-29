@@ -3,17 +3,12 @@
     "1": {
       "id": 1,
       "title": "Sample Board1",
-      "list": {
-        "list1": { "title": "List 1" },
-        "list2": { "title": "List 2" }
-      },
-      "path": "sampleboard1"
+      "list": ["list1", "list2"]
     },
     "2": {
       "id": 2,
       "title": "Sample Board2",
-      "list": [],
-      "path": "sampleboard2"
+      "list": ["list4", "list3"]
     }
   },
   "users": [
@@ -22,5 +17,11 @@
       "name": "Shalin James",
       "boards": [1, 2]
     }
-  ]
+  ],
+  "list": {
+    "list1": { "title": "List 1" },
+    "list2": { "title": "List 2" },
+    "list3": { "title": "List 3" },
+    "list4": { "title": "List 4" }
+  }
 }

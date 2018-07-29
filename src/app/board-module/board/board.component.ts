@@ -3,8 +3,10 @@ import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs";
 
 import { BoardState } from "../../store/board.state";
-import { Board } from "../../types";
+import { ListState } from "../../store/list.state";
+import { Board, List } from "../../types";
 import { UpdateBoardTitle } from "../../store/board.actions";
+import { UpdateBoardList } from "../../store/list.action";
 
 @Component({
   selector: "app-board",
@@ -13,14 +15,20 @@ import { UpdateBoardTitle } from "../../store/board.actions";
 })
 export class BoardComponent implements OnInit {
   @Select(BoardState.getSelectedBoard) board$: Observable<Board>;
+  @Select(ListState.getSelectedList) list$: Observable<List>;
 
   constructor(private store: Store) {}
 
   public keys = Object.keys;
   public board: Board;
+  public list: List;
 
   ngOnInit() {
-    this.board$.subscribe(board => (this.board = board));
+    this.board$.subscribe(board => {
+      this.store.dispatch(new UpdateBoardList(board.list));
+      this.board = board;
+    });
+    this.list$.subscribe(list => (this.list = list));
   }
   public saveBoardTitle(newTitle) {
     this.store.dispatch(new UpdateBoardTitle(newTitle));
