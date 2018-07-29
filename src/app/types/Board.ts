@@ -1,7 +1,7 @@
 export class Board {
   id: string;
   title: string;
-  list: object;
+  list: Array<string>;
   path: string;
 }
 

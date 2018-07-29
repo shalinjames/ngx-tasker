@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
-import { Board, Boards } from "../../types";
+import { Board, Boards, List } from "../../types";
 import { generateEndPoint } from "../../common/utils";
 
 @Injectable({
@@ -13,5 +13,9 @@ export class BoardListService {
 
   public getBoards(): Observable<Boards> {
     return this.httpCli.get<Boards>(generateEndPoint("boards"));
+  }
+
+  public getList(): Observable<List> {
+    return this.httpCli.get<List>(generateEndPoint("list"));
   }
 }

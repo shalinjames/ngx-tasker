@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngxs/store";
 
 import { ListEntry } from "../../../types";
@@ -9,7 +9,7 @@ import { UpdateListTitle } from "../../../store/board.actions";
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.css"]
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   @Input() list: ListEntry;
   @Input() id: string;
 
@@ -25,5 +25,9 @@ export class ListComponent {
 
   toggleEditTitle() {
     this.editTitle = !this.editTitle;
+  }
+
+  ngOnInit() {
+    console.log(this.list);
   }
 }
