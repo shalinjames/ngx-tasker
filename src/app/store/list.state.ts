@@ -1,28 +1,37 @@
-import { State, Action, StateContext, NgxsOnInit, Selector } from "@ngxs/store";
+import {
+  State,
+  Action,
+  StateContext,
+  NgxsOnInit,
+  Selector,
+  Store
+} from "@ngxs/store";
+import produce from "immer";
+import uuidv4 from "uuid/v4";
 
 import { List } from "../types";
-import { UpdateBoardList } from "./list.action";
+import { UpdateBoardList, UpdateListTitle, AddListType } from "./list.action";
+import { AddListTypeToBoard } from "./board.actions";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 
 export class ListStateModel {
   list: List;
-  selectedList: List;
+  selectedList: Array<string>;
 }
 
 @State<ListStateModel>({
   name: "listState",
   defaults: {
     list: {},
-    selectedList: {}
+    selectedList: []
   }
 })
 export class ListState implements NgxsOnInit {
-  constructor(private boardListSer: BoardListService) {}
+  constructor(private boardListSer: BoardListService, private store: Store) {}
 
-  ngxsOnInit({ getState, setState }: StateContext<ListStateModel>) {
+  ngxsOnInit({ getState, patchState }: StateContext<ListStateModel>) {
     this.boardListSer.getList().subscribe(list =>
-      setState({
-        ...getState(),
+      patchState({
         list
       })
     );
@@ -33,18 +42,42 @@ export class ListState implements NgxsOnInit {
     { getState, patchState }: StateContext<ListStateModel>,
     action: UpdateBoardList
   ) {
-    const state = getState();
-    const selectedList = action.list.reduce((carry, listId) => {
-      carry[listId] = state.list[listId];
-      return carry;
-    }, {});
-    patchState({
-      ...state,
-      selectedList
-    });
+    patchState(
+      produce(getState(), draft => {
+        draft.selectedList = action.list;
+      })
+    );
   }
   @Selector()
   static getSelectedList(state: ListStateModel) {
-    return state.selectedList;
+    return state.selectedList.map(listId => ({
+      id: listId,
+      ...state.list[listId]
+    }));
+  }
+
+  @Action(UpdateListTitle)
+  setListTitle(
+    { getState, patchState }: StateContext<ListStateModel>,
+    action: UpdateListTitle
+  ) {
+    patchState(
+      produce(getState(), draft => {
+        draft.list[action.listId].title = action.title;
+      })
+    );
+  }
+  @Action(AddListType)
+  addListType(
+    { getState, patchState }: StateContext<ListStateModel>,
+    action: AddListType
+  ) {
+    const id = uuidv4();
+    patchState(
+      produce(getState(), draft => {
+        draft.list[id] = { title: action.title };
+      })
+    );
+    this.store.dispatch(new AddListTypeToBoard(id));
   }
 }

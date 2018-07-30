@@ -14,12 +14,8 @@ export class UpdateBoardTitle {
   static readonly type = "[Board] Set board title";
   constructor(public title: string) {}
 }
-export class UpdateListTitle {
-  static readonly type = "[List] Update list title";
-  constructor(public title: string, public listId: string) {}
-}
 
-export class AddListType {
-  static readonly type = "[List] Add a new list";
+export class AddListTypeToBoard {
+  static readonly type = "[Board] Adds one more list type to the board";
   constructor(public title: string) {}
 }
