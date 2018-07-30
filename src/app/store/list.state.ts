@@ -6,6 +6,7 @@ import {
   Selector,
   Store
 } from "@ngxs/store";
+import produce from "immer";
 import uuidv4 from "uuid/v4";
 
 import { List } from "../types";
@@ -28,10 +29,9 @@ export class ListStateModel {
 export class ListState implements NgxsOnInit {
   constructor(private boardListSer: BoardListService, private store: Store) {}
 
-  ngxsOnInit({ getState, setState }: StateContext<ListStateModel>) {
+  ngxsOnInit({ getState, patchState }: StateContext<ListStateModel>) {
     this.boardListSer.getList().subscribe(list =>
-      setState({
-        ...getState(),
+      patchState({
         list
       })
     );
@@ -42,10 +42,11 @@ export class ListState implements NgxsOnInit {
     { getState, patchState }: StateContext<ListStateModel>,
     action: UpdateBoardList
   ) {
-    patchState({
-      ...getState(),
-      selectedList: action.list
-    });
+    patchState(
+      produce(getState(), draft => {
+        draft.selectedList = action.list;
+      })
+    );
   }
   @Selector()
   static getSelectedList(state: ListStateModel) {
@@ -60,32 +61,23 @@ export class ListState implements NgxsOnInit {
     { getState, patchState }: StateContext<ListStateModel>,
     action: UpdateListTitle
   ) {
-    const state = getState();
-    patchState({
-      list: {
-        ...state.list,
-        [action.listId]: {
-          ...state.list[action.listId],
-          title: action.title
-        }
-      }
-    });
+    patchState(
+      produce(getState(), draft => {
+        draft.list[action.listId].title = action.title;
+      })
+    );
   }
   @Action(AddListType)
   addListType(
     { getState, patchState }: StateContext<ListStateModel>,
     action: AddListType
   ) {
-    const state = getState();
     const id = uuidv4();
-    patchState({
-      list: {
-        ...state.list,
-        [id]: {
-          title: action.title
-        }
-      }
-    });
+    patchState(
+      produce(getState(), draft => {
+        draft.list[id] = { title: action.title };
+      })
+    );
     this.store.dispatch(new AddListTypeToBoard(id));
   }
 }

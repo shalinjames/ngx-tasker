@@ -1,7 +1,8 @@
 import { State, Action, StateContext, NgxsOnInit, Selector } from "@ngxs/store";
 import uuidv4 from "uuid/v4";
+import produce from "immer";
 
-import { Board, Boards } from "../types";
+import { Boards } from "../types";
 import {
   AddBoard,
   SelectBoard,
@@ -35,17 +36,15 @@ export class BoardState implements NgxsOnInit {
     private userService: UsersService
   ) {}
 
-  ngxsOnInit(ctx: StateContext<BoardStateModel>) {
-    const state = ctx.getState();
+  ngxsOnInit({ patchState }: StateContext<BoardStateModel>) {
     this.boardListSer.getBoards().subscribe(boards => {
-      ctx.setState({
-        ...state,
+      patchState({
         boards
       });
     });
 
     this.userService.get().subscribe(user => {
-      ctx.patchState({ user });
+      patchState({ user });
     });
   }
 
@@ -58,27 +57,24 @@ export class BoardState implements NgxsOnInit {
     return boards;
   }
   @Action(AddBoard)
-  addBoard(ctx: StateContext<BoardStateModel>, action: AddBoard) {
-    const state = ctx.getState();
+  addBoard(
+    { getState, patchState }: StateContext<BoardStateModel>,
+    action: AddBoard
+  ) {
     const id = uuidv4();
-    ctx.patchState({
-      boards: {
-        ...state.boards,
-        [id]: { id, title: action.name, lanes: [], path: id }
-      },
-      user: {
-        ...state.user,
-        boards: [...state.user.boards, id]
-      }
-    });
+    patchState(
+      produce(getState(), draft => {
+        draft.boards[id] = { id, title: action.name, list: [] };
+        draft.user.boards.push(id);
+      })
+    );
   }
 
   @Action(SelectBoard)
   selectBoard(
-    { getState, patchState }: StateContext<BoardStateModel>,
+    { patchState }: StateContext<BoardStateModel>,
     action: SelectBoard
   ) {
-    const state = getState();
     patchState({
       selectedboardId: action.selectedBoardId
     });
@@ -95,16 +91,11 @@ export class BoardState implements NgxsOnInit {
     action: UpdateBoardTitle
   ) {
     const state = getState();
-    const selectedBoard = state.boards[state.selectedboardId];
-    patchState({
-      boards: {
-        ...state.boards,
-        [state.selectedboardId]: {
-          ...selectedBoard,
-          title: action.title
-        }
-      }
-    });
+    patchState(
+      produce(state, draft => {
+        draft.boards[state.selectedboardId].title = action.title;
+      })
+    );
   }
 
   @Action(AddListTypeToBoard)
@@ -113,16 +104,10 @@ export class BoardState implements NgxsOnInit {
     action: AddListTypeToBoard
   ) {
     const state = getState();
-    const selectedBoard = state.boards[state.selectedboardId];
-
-    patchState({
-      boards: {
-        ...state.boards,
-        [state.selectedboardId]: {
-          ...selectedBoard,
-          list: [...selectedBoard.list, action.title]
-        }
-      }
-    });
+    patchState(
+      produce(state, draft => {
+        draft.boards[state.selectedboardId].list.push(action.title);
+      })
+    );
   }
 }
