@@ -8,7 +8,8 @@
         Enter List Name
       </mat-card-title>
     </mat-card-header>
-    <input type="text" #newListtitle class="input-list-name" autofocus type="text" placeholder="New List Title" />
+    <input type="text" #newListtitle class="input-list-name" autofocus type="text" placeholder="New List Title" (keyup.enter)="saveNewListTitle(newListtitle.value)"
+    />
     <mat-card-actions *ngIf="openTextInput">
       <button mat-button (click)="saveNewListTitle(newListtitle.value)">Add</button>
       <button mat-button (click)="toggleListTextEdit()">Cancel</button>

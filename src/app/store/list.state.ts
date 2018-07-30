@@ -42,23 +42,17 @@ export class ListState implements NgxsOnInit {
     { getState, patchState }: StateContext<ListStateModel>,
     action: UpdateBoardList
   ) {
-    const state = getState();
-    const selectedList = action.list.reduce((carry, listId) => {
-      carry[listId] = state.list[listId];
-      return carry;
-    }, {});
     patchState({
-      ...state,
+      ...getState(),
       selectedList: action.list
     });
   }
   @Selector()
   static getSelectedList(state: ListStateModel) {
-    const filtered = state.selectedList.reduce((carry, listId) => {
-      carry[listId] = state.list[listId];
-      return carry;
-    }, {});
-    return filtered;
+    return state.selectedList.map(listId => ({
+      id: listId,
+      ...state.list[listId]
+    }));
   }
 
   @Action(UpdateListTitle)
