@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Store } from "@ngxs/store";
 
-import { AddListType } from "../../../store/board.actions";
+import { AddListType } from "../../../store/list.action";
 
 @Component({
   selector: "ngx-tasker-add-list",

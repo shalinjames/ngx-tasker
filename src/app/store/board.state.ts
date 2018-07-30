@@ -5,9 +5,8 @@ import { Board, Boards } from "../types";
 import {
   AddBoard,
   SelectBoard,
-  UpdateListTitle,
   UpdateBoardTitle,
-  AddListType
+  AddListTypeToBoard
 } from "./board.actions";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { UsersService } from "../webservices/users/users.service";
@@ -89,29 +88,6 @@ export class BoardState implements NgxsOnInit {
   static getSelectedBoard(state: BoardStateModel) {
     return state.boards[state.selectedboardId];
   }
-  @Action(UpdateListTitle)
-  setListTitle(
-    { getState, patchState }: StateContext<BoardStateModel>,
-    action: UpdateListTitle
-  ) {
-    const state = getState();
-    const selectedBoard = state.boards[state.selectedboardId];
-    const selectedList = state.boards[state.selectedboardId].list;
-    patchState({
-      boards: {
-        ...state.boards,
-        [state.selectedboardId]: {
-          ...selectedBoard,
-          list: {
-            ...selectedList,
-            [action.listId]: {
-              title: action.title
-            }
-          }
-        }
-      }
-    });
-  }
 
   @Action(UpdateBoardTitle)
   setBoardTItle(
@@ -130,25 +106,21 @@ export class BoardState implements NgxsOnInit {
       }
     });
   }
-  @Action(AddListType)
-  addListType(
+
+  @Action(AddListTypeToBoard)
+  addListTypeToBoard(
     { getState, patchState }: StateContext<BoardStateModel>,
-    action: AddListType
+    action: AddListTypeToBoard
   ) {
     const state = getState();
     const selectedBoard = state.boards[state.selectedboardId];
-    const id = uuidv4();
+
     patchState({
       boards: {
         ...state.boards,
         [state.selectedboardId]: {
           ...selectedBoard,
-          list: {
-            ...selectedBoard.list,
-            [id]: {
-              title: action.title
-            }
-          }
+          list: [...selectedBoard.list, action.title]
         }
       }
     });

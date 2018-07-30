@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngxs/store";
 
 import { ListEntry } from "../../../types";
-import { UpdateListTitle } from "../../../store/board.actions";
+import { UpdateListTitle } from "../../../store/list.action";
 
 @Component({
   selector: "ngx-tasker-list",
