@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     this.board$.subscribe(board => {
-      this.store.dispatch(new UpdateBoardList(board.list));
+      this.store.dispatch(new UpdateBoardList(board.id));
       this.board = board;
     });
     this.list$.subscribe(list => (this.list = list));

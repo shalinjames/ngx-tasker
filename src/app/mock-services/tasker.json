@@ -2,13 +2,11 @@
   "boards": {
     "1": {
       "id": 1,
-      "title": "Sample Board1",
-      "list": ["list1", "list2"]
+      "title": "Sample Board1"
     },
     "2": {
       "id": 2,
-      "title": "Sample Board2",
-      "list": ["list4", "list3"]
+      "title": "Sample Board2"
     }
   },
   "users": [
@@ -19,9 +17,9 @@
     }
   ],
   "list": {
-    "list1": { "title": "List 1" },
-    "list2": { "title": "List 2" },
-    "list3": { "title": "List 3" },
-    "list4": { "title": "List 4" }
+    "list1": { "title": "List 1", "belongTo": "1" },
+    "list2": { "title": "List 2", "belongTo": "1" },
+    "list3": { "title": "List 3", "belongTo": "2" },
+    "list4": { "title": "List 4", "belongTo": "2" }
   }
 }

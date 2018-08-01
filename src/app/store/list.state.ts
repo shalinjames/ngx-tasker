@@ -4,7 +4,8 @@ import {
   StateContext,
   NgxsOnInit,
   Selector,
-  Store
+  Store,
+  Select
 } from "@ngxs/store";
 import produce from "immer";
 import uuidv4 from "uuid/v4";
@@ -26,34 +27,31 @@ export class ListStateModel {
     selectedList: []
   }
 })
-export class ListState implements NgxsOnInit {
+export class ListState {
   constructor(private boardListSer: BoardListService, private store: Store) {}
-
-  ngxsOnInit({ getState, patchState }: StateContext<ListStateModel>) {
-    this.boardListSer.getList().subscribe(list =>
-      patchState({
-        list
-      })
-    );
-  }
 
   @Action(UpdateBoardList)
   updateBoardList(
-    { getState, patchState }: StateContext<ListStateModel>,
+    { patchState }: StateContext<ListStateModel>,
     action: UpdateBoardList
   ) {
-    patchState(
-      produce(getState(), draft => {
-        draft.selectedList = action.list;
-      })
-    );
+    return this.boardListSer.getList().subscribe(list => {
+      const boardList = {};
+      for (const key in list) {
+        if (list[key].belongTo == action.boardId) {
+          boardList[key] = list[key];
+        }
+      }
+      patchState({
+        list: boardList
+      });
+      console.log("patching state", list, boardList);
+    });
   }
+
   @Selector()
   static getSelectedList(state: ListStateModel) {
-    return state.selectedList.map(listId => ({
-      id: listId,
-      ...state.list[listId]
-    }));
+    return state.list;
   }
 
   @Action(UpdateListTitle)
@@ -75,7 +73,7 @@ export class ListState implements NgxsOnInit {
     const id = uuidv4();
     patchState(
       produce(getState(), draft => {
-        draft.list[id] = { title: action.title };
+        draft.list[id] = { title: action.title, belongTo: action.boardId };
       })
     );
     this.store.dispatch(new AddListTypeToBoard(id));
