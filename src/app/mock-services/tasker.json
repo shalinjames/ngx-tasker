@@ -1,25 +1,33 @@
 {
-  "boards": {
-    "1": {
-      "id": 1,
-      "title": "Sample Board1"
+  "tasker": {
+    "boards": {
+      "1": {
+        "id": 1,
+        "title": "Sample Board1"
+      },
+      "2": {
+        "id": 2,
+        "title": "Sample Board2"
+      }
     },
-    "2": {
-      "id": 2,
-      "title": "Sample Board2"
+    "users": [
+      {
+        "id": 1,
+        "name": "Shalin James",
+        "boards": [1, 2]
+      }
+    ],
+    "list": {
+      "list1": { "title": "List 1", "belongTo": "1" },
+      "list2": { "title": "List 2", "belongTo": "1" },
+      "list3": { "title": "List 3", "belongTo": "2" },
+      "list4": { "title": "List 4", "belongTo": "2" }
+    },
+    "cards": {
+      "card1": { "title": "Card 12312", "belongsTo": "list1" },
+      "card2": { "title": "Card 12312234", "belongsTo": "list2" },
+      "card3": { "title": "Card sfsdf2", "belongsTo": "list1" },
+      "card4": { "title": "Card 1dgsdfhs234", "belongsTo": "list2" }
     }
-  },
-  "users": [
-    {
-      "id": 1,
-      "name": "Shalin James",
-      "boards": [1, 2]
-    }
-  ],
-  "list": {
-    "list1": { "title": "List 1", "belongTo": "1" },
-    "list2": { "title": "List 2", "belongTo": "1" },
-    "list3": { "title": "List 3", "belongTo": "2" },
-    "list4": { "title": "List 4", "belongTo": "2" }
   }
 }

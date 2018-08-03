@@ -73,7 +73,7 @@ export class ListState {
     const id = uuidv4();
     patchState(
       produce(getState(), draft => {
-        draft.list[id] = { title: action.title, belongTo: action.boardId };
+        draft.list[id] = { title: action.title, belongTo: "" };
       })
     );
     this.store.dispatch(new AddListTypeToBoard(id));

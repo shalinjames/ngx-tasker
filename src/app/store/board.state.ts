@@ -1,4 +1,12 @@
-import { State, Action, StateContext, NgxsOnInit, Selector } from "@ngxs/store";
+import {
+  State,
+  Action,
+  StateContext,
+  NgxsOnInit,
+  Selector,
+  Select,
+  Store
+} from "@ngxs/store";
 import uuidv4 from "uuid/v4";
 import produce from "immer";
 
@@ -9,8 +17,10 @@ import {
   UpdateBoardTitle,
   AddListTypeToBoard
 } from "./board.actions";
+import { UserState } from "./user.state";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { UsersService } from "../webservices/users/users.service";
+import { Observable } from "../../../node_modules/rxjs";
 
 export class BoardStateModel {
   boards: Boards;
@@ -33,19 +43,26 @@ export class BoardStateModel {
 export class BoardState implements NgxsOnInit {
   constructor(
     private boardListSer: BoardListService,
-    private userService: UsersService
+    private userService: UsersService,
+    private store: Store
   ) {}
 
   ngxsOnInit({ patchState }: StateContext<BoardStateModel>) {
-    this.boardListSer.getBoards().subscribe(boards => {
-      patchState({
-        boards
-      });
+    const boards = this.store.selectSnapshot(UserState.getBoards);
+    console.log(boards);
+    patchState({
+      boards
     });
+    // this.boards$.subscribe(boards => {
+    //   console.log("Boards State Patched");
+    //   patchState({
+    //     boards
+    //   });
+    // });
 
-    this.userService.get().subscribe(user => {
-      patchState({ user });
-    });
+    // this.userService.get().subscribe(user => {
+    //   patchState({ user });
+    // });
   }
 
   @Selector()

@@ -10,5 +10,6 @@ export class UpdateListTitle {
 
 export class AddListType {
   static readonly type = "[List] Add a new list";
+  //@TODO , public boardId: string
   constructor(public title: string) {}
 }
