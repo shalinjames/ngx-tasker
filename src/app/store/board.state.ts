@@ -48,18 +48,17 @@ export class BoardState implements NgxsOnInit {
   ) {}
 
   ngxsOnInit({ patchState }: StateContext<BoardStateModel>) {
-    const boards = this.store.selectSnapshot(UserState.getBoards);
-    console.log(boards);
-    patchState({
-      boards
-    });
+    // const boards = this.store.selectSnapshot(UserState.getBoards);
+    // console.log(boards);
+    // patchState({
+    //   boards
+    // });
     // this.boards$.subscribe(boards => {
     //   console.log("Boards State Patched");
     //   patchState({
     //     boards
     //   });
     // });
-
     // this.userService.get().subscribe(user => {
     //   patchState({ user });
     // });
@@ -68,10 +67,11 @@ export class BoardState implements NgxsOnInit {
   @Selector()
   static getBoards(state: BoardStateModel) {
     const boards = {};
+    console.log(state.boards);
     state.user.boards.map(board => {
       boards[board] = state.boards[board];
     });
-    return boards;
+    return state.boards;
   }
   @Action(AddBoard)
   addBoard(
