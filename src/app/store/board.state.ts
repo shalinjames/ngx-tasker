@@ -2,7 +2,6 @@ import {
   State,
   Action,
   StateContext,
-  NgxsOnInit,
   Selector,
   Select,
   Store
@@ -10,68 +9,35 @@ import {
 import uuidv4 from "uuid/v4";
 import produce from "immer";
 
-import { Boards } from "../types";
+import { Board } from "../types";
 import {
   AddBoard,
   SelectBoard,
   UpdateBoardTitle,
   AddListTypeToBoard
 } from "./board.actions";
-import { UserState } from "./user.state";
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { UsersService } from "../webservices/users/users.service";
-import { Observable } from "../../../node_modules/rxjs";
 
 export class BoardStateModel {
-  boards: Boards;
-  user: {
-    boards: Array<number>;
-  };
-  selectedboardId: string;
+  [param: string]: Board;
 }
 
 @State<BoardStateModel>({
-  name: "boardState",
-  defaults: {
-    boards: {},
-    user: {
-      boards: []
-    },
-    selectedboardId: null
-  }
+  name: "boards",
+  defaults: {}
 })
-export class BoardState implements NgxsOnInit {
+export class BoardState {
   constructor(
     private boardListSer: BoardListService,
     private userService: UsersService,
     private store: Store
   ) {}
 
-  ngxsOnInit({ patchState }: StateContext<BoardStateModel>) {
-    // const boards = this.store.selectSnapshot(UserState.getBoards);
-    // console.log(boards);
-    // patchState({
-    //   boards
-    // });
-    // this.boards$.subscribe(boards => {
-    //   console.log("Boards State Patched");
-    //   patchState({
-    //     boards
-    //   });
-    // });
-    // this.userService.get().subscribe(user => {
-    //   patchState({ user });
-    // });
-  }
-
   @Selector()
   static getBoards(state: BoardStateModel) {
     const boards = {};
-    console.log(state.boards);
-    state.user.boards.map(board => {
-      boards[board] = state.boards[board];
-    });
-    return state.boards;
+    return state;
   }
   @Action(AddBoard)
   addBoard(
@@ -81,8 +47,7 @@ export class BoardState implements NgxsOnInit {
     const id = uuidv4();
     patchState(
       produce(getState(), draft => {
-        draft.boards[id] = { id, title: action.name, list: [] };
-        draft.user.boards.push(id);
+        draft[id] = { id, title: action.name, list: [] };
       })
     );
   }
