@@ -7,11 +7,11 @@ import {
   Selector
 } from "@ngxs/store";
 import { tap } from "rxjs/operators";
-import produce from "immer";
 
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { Boards, List } from "../types";
 import { BoardState } from "./board.state";
+import { ListState } from "./list.state";
 import { SetInitialUserState, SelectBoard } from "./user.actions";
 
 export class UserStateModel {
@@ -29,7 +29,7 @@ export class UserStateModel {
 
 @State<UserStateModel>({
   name: "user",
-  children: [BoardState]
+  children: [BoardState, ListState]
 })
 export class UserState implements NgxsOnInit {
   constructor(private boardListSer: BoardListService, store: Store) {}
@@ -47,7 +47,10 @@ export class UserState implements NgxsOnInit {
       tap(tasker => {
         const state = getState();
         setState({
-          ...tasker
+          ...tasker,
+          boards: {
+            boards: tasker.boards
+          }
         });
       })
     );

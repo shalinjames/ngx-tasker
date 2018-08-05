@@ -9,7 +9,7 @@ import {
 import uuidv4 from "uuid/v4";
 import produce from "immer";
 
-import { Board } from "../types";
+import { Board, Boards } from "../types";
 import {
   AddBoard,
   UpdateBoardTitle,
@@ -18,12 +18,14 @@ import {
 import { AppUserState } from "./app.user.state";
 
 export class BoardStateModel {
-  [param: string]: Board;
+  boards: Boards;
 }
 
 @State<BoardStateModel>({
   name: "boards",
-  defaults: {}
+  defaults: {
+    boards: {}
+  }
 })
 export class BoardState {
   constructor(private store: Store) {}
@@ -35,13 +37,13 @@ export class BoardState {
 
   @Selector()
   static getBoards(state: BoardStateModel) {
-    const boards = {};
-    return state;
+    return state.boards;
   }
 
   @Selector()
-  static getSelectedBoard(state: BoardStateModel, boardState: BoardState) {
-    return state[boardState.selectedBoardId];
+  static getSelectedBoard(boardId, state: BoardStateModel) {
+    console.log(state);
+    return state[boardId];
   }
 
   @Action(AddBoard)

@@ -16,8 +16,7 @@ import { UpdateBoardList } from "../../store/list.action";
 })
 export class BoardComponent implements OnInit {
   @Select(AppUserState.getSelectedBoardId) boardId$: Observable<string>;
-  @Select(BoardState.getSelectedBoard) board$: Observable<Board>;
-  //@Select(ListState.getSelectedList) list$: Observable<List>;
+  @Select(BoardState.getBoards) boards$: Observable<Board>;
 
   constructor(private store: Store) {}
 
@@ -27,12 +26,12 @@ export class BoardComponent implements OnInit {
   public boardId: string;
 
   ngOnInit() {
-    this.boardId$.subscribe(boardId => (this.boardId = boardId));
-    this.board$.subscribe(board => {
-      this.store.dispatch(new UpdateBoardList(this.boardId));
-      this.board = board;
+    this.boardId$.subscribe(boardId => {
+      this.boardId = boardId;
     });
-    //this.list$.subscribe(list => (this.list = list));
+    this.boards$.subscribe(boards => {
+      this.board = boards[this.boardId];
+    });
   }
   public saveBoardTitle(newTitle) {
     this.store.dispatch(new UpdateBoardTitle(newTitle));
