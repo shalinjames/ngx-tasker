@@ -12,12 +12,10 @@ import produce from "immer";
 import { Board } from "../types";
 import {
   AddBoard,
-  SelectBoard,
   UpdateBoardTitle,
   AddListTypeToBoard
 } from "./board.actions";
-import { BoardListService } from "../webservices/boardlist/board-list.service";
-import { UsersService } from "../webservices/users/users.service";
+import { AppUserState } from "./app.user.state";
 
 export class BoardStateModel {
   [param: string]: Board;
@@ -28,17 +26,24 @@ export class BoardStateModel {
   defaults: {}
 })
 export class BoardState {
-  constructor(
-    private boardListSer: BoardListService,
-    private userService: UsersService,
-    private store: Store
-  ) {}
+  constructor(private store: Store) {}
+
+  get selectedBoardId(): string {
+    const appUserState = this.store.selectSnapshot(AppUserState);
+    return appUserState.selectedboardId;
+  }
 
   @Selector()
   static getBoards(state: BoardStateModel) {
     const boards = {};
     return state;
   }
+
+  @Selector()
+  static getSelectedBoard(state: BoardStateModel, boardState: BoardState) {
+    return state[boardState.selectedBoardId];
+  }
+
   @Action(AddBoard)
   addBoard(
     { getState, patchState }: StateContext<BoardStateModel>,
@@ -52,44 +57,30 @@ export class BoardState {
     );
   }
 
-  @Action(SelectBoard)
-  selectBoard(
-    { patchState }: StateContext<BoardStateModel>,
-    action: SelectBoard
-  ) {
-    patchState({
-      selectedboardId: action.selectedBoardId
-    });
-  }
-
-  @Selector()
-  static getSelectedBoard(state: BoardStateModel) {
-    return state.boards[state.selectedboardId];
-  }
-
   @Action(UpdateBoardTitle)
   setBoardTItle(
     { getState, patchState }: StateContext<BoardStateModel>,
     action: UpdateBoardTitle
   ) {
     const state = getState();
+
     patchState(
       produce(state, draft => {
-        draft.boards[state.selectedboardId].title = action.title;
+        draft.boards[this.selectedBoardId].title = action.title;
       })
     );
   }
 
-  @Action(AddListTypeToBoard)
-  addListTypeToBoard(
-    { getState, patchState }: StateContext<BoardStateModel>,
-    action: AddListTypeToBoard
-  ) {
-    const state = getState();
-    patchState(
-      produce(state, draft => {
-        draft.boards[state.selectedboardId].list.push(action.title);
-      })
-    );
-  }
+  // @Action(AddListTypeToBoard)
+  // addListTypeToBoard(
+  //   { getState, patchState }: StateContext<BoardStateModel>,
+  //   action: AddListTypeToBoard
+  // ) {
+  //   const state = getState();
+  //   patchState(
+  //     produce(state, draft => {
+  //       draft.boards[state.selectedboardId].list.push(action.title);
+  //     })
+  //   );
+  // }
 }

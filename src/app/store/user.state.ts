@@ -1,11 +1,18 @@
-import { State, Action, StateContext, NgxsOnInit, Store } from "@ngxs/store";
+import {
+  State,
+  Action,
+  StateContext,
+  NgxsOnInit,
+  Store,
+  Selector
+} from "@ngxs/store";
+import { tap } from "rxjs/operators";
+import produce from "immer";
 
 import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { Boards, List } from "../types";
 import { BoardState } from "./board.state";
-import produce from "immer";
-import { tap } from "rxjs/operators";
-import { SetInitialUserState } from "./user.action";
+import { SetInitialUserState, SelectBoard } from "./user.actions";
 
 export class UserStateModel {
   boards: Boards;
@@ -17,7 +24,7 @@ export class UserStateModel {
       belongsTo: string;
     };
   };
-  selectedBoard: string;
+  selectedboardId: string;
 }
 
 @State<UserStateModel>({
@@ -44,5 +51,10 @@ export class UserState implements NgxsOnInit {
         });
       })
     );
+  }
+
+  @Selector()
+  static getSelectedBoard(state: UserStateModel) {
+    return state.selectedboardId;
   }
 }
