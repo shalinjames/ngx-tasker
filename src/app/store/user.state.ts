@@ -50,6 +50,9 @@ export class UserState implements NgxsOnInit {
           ...tasker,
           boards: {
             boards: tasker.boards
+          },
+          list: {
+            list: tasker.list
           }
         });
       })
