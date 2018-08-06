@@ -11,9 +11,8 @@ import produce from "immer";
 import uuidv4 from "uuid/v4";
 
 import { List, ListEntry } from "../types";
-import { UpdateBoardList, UpdateListTitle, AddListType } from "./list.action";
+import { UpdateListTitle, AddListType } from "./list.action";
 import { AddListTypeToBoard } from "./board.actions";
-import { BoardListService } from "../webservices/boardlist/board-list.service";
 import { AppUserState } from "./app.user.state";
 import { Observable } from "../../../node_modules/rxjs";
 
@@ -29,41 +28,13 @@ export class ListStateModel {
     selectedList: []
   }
 })
-export class ListState implements NgxsOnInit {
+export class ListState {
   @Select(AppUserState.getSelectedBoardId) selectedBoardId$: Observable<string>;
-  constructor(private boardListSer: BoardListService, private store: Store) {}
-
-  ngxsOnInit({ dispatch }: StateContext<ListStateModel>) {
-    this.selectedBoardId$.subscribe(boardId => {
-      if (boardId) {
-        dispatch(new UpdateBoardList(boardId));
-      }
-    });
-  }
-
-  @Action(UpdateBoardList)
-  updateBoardList(
-    { getState, patchState }: StateContext<ListStateModel>,
-    action: UpdateBoardList
-  ) {
-    const state = getState();
-    const selectedList = Object.keys(state.list).reduce(
-      (carryArr, listEntryId) => {
-        if (state.list[listEntryId].belongTo == action.boardId) {
-          carryArr.push({ id: listEntryId, ...state.list[listEntryId] });
-        }
-        return carryArr;
-      },
-      []
-    );
-    patchState({
-      selectedList
-    });
-  }
+  constructor(private store: Store) {}
 
   @Selector()
-  static getSelectedList(state: ListStateModel) {
-    return state.selectedList;
+  static getList(state: ListStateModel) {
+    return state.list;
   }
 
   @Action(UpdateListTitle)
