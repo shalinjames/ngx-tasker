@@ -4,13 +4,15 @@ import { NgxsModule } from "@ngxs/store";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 
+import { UserState } from "./user.state";
 import { BoardState } from "./board.state";
 import { ListState } from "./list.state";
+import { AppUserState } from "./app.user.state";
 
 @NgModule({
   imports: [
     CommonModule,
-    NgxsModule.forRoot([BoardState, ListState]),
+    NgxsModule.forRoot([UserState, AppUserState, BoardState, ListState]),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],

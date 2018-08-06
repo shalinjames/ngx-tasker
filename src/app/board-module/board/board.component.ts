@@ -2,11 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs";
 
+import { ObjectFilter } from "../../common/utils";
 import { BoardState } from "../../store/board.state";
 import { ListState } from "../../store/list.state";
+import { AppUserState } from "../../store/app.user.state";
 import { Board, List } from "../../types";
 import { UpdateBoardTitle } from "../../store/board.actions";
-import { UpdateBoardList } from "../../store/list.action";
 
 @Component({
   selector: "app-board",
@@ -14,21 +15,30 @@ import { UpdateBoardList } from "../../store/list.action";
   styleUrls: ["./board.component.css"]
 })
 export class BoardComponent implements OnInit {
-  @Select(BoardState.getSelectedBoard) board$: Observable<Board>;
-  @Select(ListState.getSelectedList) list$: Observable<List>;
+  @Select(AppUserState.getSelectedBoardId) boardId$: Observable<string>;
+  @Select(BoardState.getBoards) boards$: Observable<Board>;
+  @Select(ListState.getList) list$: Observable<List>;
 
   constructor(private store: Store) {}
 
-  public keys = Object.keys;
   public board: Board;
-  public list: List;
+  public list;
+  public boardId: string;
 
   ngOnInit() {
-    this.board$.subscribe(board => {
-      this.store.dispatch(new UpdateBoardList(board.list));
-      this.board = board;
+    this.boardId$.subscribe(boardId => {
+      this.boardId = boardId;
     });
-    this.list$.subscribe(list => (this.list = list));
+    this.boards$.subscribe(boards => {
+      this.board = boards[this.boardId];
+    });
+    this.list$.subscribe(
+      list =>
+        (this.list = ObjectFilter(list, {
+          key: "belongTo",
+          value: this.boardId
+        }))
+    );
   }
   public saveBoardTitle(newTitle) {
     this.store.dispatch(new UpdateBoardTitle(newTitle));

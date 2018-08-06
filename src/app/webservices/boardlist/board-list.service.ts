@@ -18,4 +18,8 @@ export class BoardListService {
   public getList(): Observable<List> {
     return this.httpCli.get<List>(generateEndPoint("list"));
   }
+
+  public getTaskerByUser(userId: string): Observable<any> {
+    return this.httpCli.get<any>(generateEndPoint("tasker"));
+  }
 }

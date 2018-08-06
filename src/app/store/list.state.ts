@@ -4,56 +4,37 @@ import {
   StateContext,
   NgxsOnInit,
   Selector,
-  Store
+  Store,
+  Select
 } from "@ngxs/store";
 import produce from "immer";
 import uuidv4 from "uuid/v4";
 
-import { List } from "../types";
-import { UpdateBoardList, UpdateListTitle, AddListType } from "./list.action";
+import { List, ListEntry } from "../types";
+import { UpdateListTitle, AddListType } from "./list.action";
 import { AddListTypeToBoard } from "./board.actions";
-import { BoardListService } from "../webservices/boardlist/board-list.service";
+import { AppUserState } from "./app.user.state";
+import { Observable } from "../../../node_modules/rxjs";
 
 export class ListStateModel {
   list: List;
-  selectedList: Array<string>;
+  selectedList: Array<any>;
 }
 
 @State<ListStateModel>({
-  name: "listState",
+  name: "list",
   defaults: {
     list: {},
     selectedList: []
   }
 })
-export class ListState implements NgxsOnInit {
-  constructor(private boardListSer: BoardListService, private store: Store) {}
+export class ListState {
+  @Select(AppUserState.getSelectedBoardId) selectedBoardId$: Observable<string>;
+  constructor(private store: Store) {}
 
-  ngxsOnInit({ getState, patchState }: StateContext<ListStateModel>) {
-    this.boardListSer.getList().subscribe(list =>
-      patchState({
-        list
-      })
-    );
-  }
-
-  @Action(UpdateBoardList)
-  updateBoardList(
-    { getState, patchState }: StateContext<ListStateModel>,
-    action: UpdateBoardList
-  ) {
-    patchState(
-      produce(getState(), draft => {
-        draft.selectedList = action.list;
-      })
-    );
-  }
   @Selector()
-  static getSelectedList(state: ListStateModel) {
-    return state.selectedList.map(listId => ({
-      id: listId,
-      ...state.list[listId]
-    }));
+  static getList(state: ListStateModel) {
+    return state.list;
   }
 
   @Action(UpdateListTitle)
@@ -75,7 +56,7 @@ export class ListState implements NgxsOnInit {
     const id = uuidv4();
     patchState(
       produce(getState(), draft => {
-        draft.list[id] = { title: action.title };
+        draft.list[id] = { title: action.title, belongTo: "" };
       })
     );
     this.store.dispatch(new AddListTypeToBoard(id));

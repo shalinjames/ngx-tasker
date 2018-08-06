@@ -1,10 +1,10 @@
-<div class="board-container" *ngIf="board.list">
+<div class="board-container" *ngIf="board">
   <div class="board-header">
     <ngx-tasker-inline-text-editor [value]="board.title" (newvalue)="saveBoardTitle($event)">
     </ngx-tasker-inline-text-editor>
   </div>
   <div class="list">
-    <ngx-tasker-list *ngFor="let listEntry of list" [list]="listEntry" [id]="listEntry.id"></ngx-tasker-list>
+    <ngx-tasker-list *ngFor="let listEntry of list | keyvalue" [list]="listEntry.value" [id]="listEntry.key"></ngx-tasker-list>
     <ngx-tasker-add-list></ngx-tasker-add-list>
   </div>
 </div>

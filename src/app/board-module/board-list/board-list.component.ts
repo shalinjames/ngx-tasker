@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { Store, Select } from "@ngxs/store";
 
 import { BoardState } from "../../store/board.state";
-import { SelectBoard } from "../../store/board.actions";
+import { SelectBoard } from "../../store/user.actions";
 import { Board } from "../../types";
 
 @Component({
