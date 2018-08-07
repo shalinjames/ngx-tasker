@@ -10,7 +10,7 @@ import {
 import produce from "immer";
 import uuidv4 from "uuid/v4";
 
-import { List, ListEntry } from "../types";
+import { List } from "../types";
 import { UpdateListTitle, AddListType } from "./list.action";
 import { AddListTypeToBoard } from "./board.actions";
 import { AppUserState } from "./app.user.state";
@@ -29,7 +29,6 @@ export class ListStateModel {
   }
 })
 export class ListState {
-  @Select(AppUserState.getSelectedBoardId) selectedBoardId$: Observable<string>;
   constructor(private store: Store) {}
 
   @Selector()
@@ -54,9 +53,10 @@ export class ListState {
     action: AddListType
   ) {
     const id = uuidv4();
+    const boardId = this.store.selectSnapshot(AppUserState.getSelectedBoardId);
     patchState(
       produce(getState(), draft => {
-        draft.list[id] = { title: action.title, belongTo: "" };
+        draft.list[id] = { title: action.title, belongTo: boardId };
       })
     );
     this.store.dispatch(new AddListTypeToBoard(id));
