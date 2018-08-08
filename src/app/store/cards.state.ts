@@ -10,6 +10,7 @@ import {
 import produce from "immer";
 
 import { Cards } from "../types";
+import { AppUserState } from "./app.user.state";
 
 export class CardStateModel {
   cards: Cards;
@@ -27,4 +28,6 @@ export class CardState {
   static getCards(state: CardStateModel) {
     return state.cards;
   }
+
+  //@Todo: https://github.com/ngxs/store/issues/386#issuecomment-390181710 dynamic @selector arguments for selecting the cards for a specific list
 }

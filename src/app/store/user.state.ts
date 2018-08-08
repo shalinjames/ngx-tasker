@@ -51,7 +51,7 @@ export class UserState implements NgxsOnInit {
             list: tasker.list
           },
           cards: {
-            cards: { ...tasker.cards }
+            cards: tasker.cards
           }
         });
       })

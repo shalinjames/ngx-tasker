@@ -7,8 +7,8 @@
   </mat-card-header>
   <mat-divider [inset]="true" class="seperator"></mat-divider>
   <mat-card-content class="contents">
-    <div *ngFor="let card of cards | keyvalue">
-      {{card.value.title}}
+    <div *ngFor="let card of cards">
+      {{card.title}}
     </div>
   </mat-card-content>
 </mat-card>

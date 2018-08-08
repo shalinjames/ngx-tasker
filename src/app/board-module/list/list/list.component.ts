@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Store, Select, NgxsOnInit } from "@ngxs/store";
 import { Observable } from "rxjs";
 
@@ -11,14 +11,14 @@ import { CardState } from "../../../store/cards.state";
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.css"]
 })
-export class ListComponent implements NgxsOnInit {
+export class ListComponent implements OnInit {
   @Input() list: ListEntry;
   @Input() id: string;
 
   public editTitle = false;
 
   @Select(CardState.getCards) cards$: Observable<Cards>;
-  public cards;
+  public cards = [];
 
   constructor(private store: Store) {}
 
@@ -32,10 +32,13 @@ export class ListComponent implements NgxsOnInit {
     this.editTitle = !this.editTitle;
   }
 
-  ngxsOnInit() {
+  ngOnInit() {
     this.cards$.subscribe(cards => {
-      this.cards = cards;
-      console.log(cards);
+      for (let cardIndex in cards) {
+        if (cards[cardIndex].belongTo == this.id) {
+          this.cards.push(cards[cardIndex]);
+        }
+      }
     });
   }
 }
