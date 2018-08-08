@@ -1,19 +1,24 @@
 import { Component, Input } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Store, Select, NgxsOnInit } from "@ngxs/store";
+import { Observable } from "rxjs";
 
-import { ListEntry } from "../../../types";
+import { ListEntry, Cards } from "../../../types";
 import { UpdateListTitle } from "../../../store/list.action";
+import { CardState } from "../../../store/cards.state";
 
 @Component({
   selector: "ngx-tasker-list",
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.css"]
 })
-export class ListComponent {
+export class ListComponent implements NgxsOnInit {
   @Input() list: ListEntry;
   @Input() id: string;
 
   public editTitle = false;
+
+  @Select(CardState.getCards) cards$: Observable<Cards>;
+  public cards;
 
   constructor(private store: Store) {}
 
@@ -25,5 +30,12 @@ export class ListComponent {
 
   toggleEditTitle() {
     this.editTitle = !this.editTitle;
+  }
+
+  ngxsOnInit() {
+    this.cards$.subscribe(cards => {
+      this.cards = cards;
+      console.log(cards);
+    });
   }
 }

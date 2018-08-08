@@ -9,19 +9,22 @@ import {
 } from "@ngxs/store";
 import produce from "immer";
 
-import { BoardListService } from "../webservices/boardlist/board-list.service";
+import { Cards } from "../types";
 
 export class CardStateModel {
-  cards: Object;
+  cards: Cards;
 }
 
 @State<CardStateModel>({
-  name: "cardState",
+  name: "cards",
   defaults: {
     cards: {}
   }
 })
 export class CardState {
-  constructor(private boardListSer: BoardListService, private store: Store) {}
-  //@Select()
+  constructor() {}
+  @Selector()
+  static getCards(state: CardStateModel) {
+    return state.cards;
+  }
 }

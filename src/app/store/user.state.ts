@@ -9,27 +9,23 @@ import {
 import { tap } from "rxjs/operators";
 
 import { BoardListService } from "../webservices/boardlist/board-list.service";
-import { Boards, List } from "../types";
+import { Boards, List, Cards } from "../types";
 import { BoardState } from "./board.state";
 import { ListState } from "./list.state";
 import { SetInitialUserState, SelectBoard } from "./user.actions";
+import { CardState } from "./cards.state";
 
 export class UserStateModel {
   boards: Boards;
   users: [string];
   list: List;
-  cards: {
-    [param: string]: {
-      title: string;
-      belongsTo: string;
-    };
-  };
+  cards: Cards;
   selectedboardId: string;
 }
 
 @State<UserStateModel>({
   name: "user",
-  children: [BoardState, ListState]
+  children: [BoardState, ListState, CardState]
 })
 export class UserState implements NgxsOnInit {
   constructor(private boardListSer: BoardListService, store: Store) {}
@@ -53,6 +49,9 @@ export class UserState implements NgxsOnInit {
           },
           list: {
             list: tasker.list
+          },
+          cards: {
+            cards: { ...tasker.cards }
           }
         });
       })
