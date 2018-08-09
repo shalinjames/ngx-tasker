@@ -36,6 +36,7 @@ export class ListComponent implements OnInit {
     this.cards$.subscribe(cards => {
       for (let cardIndex in cards) {
         if (cards[cardIndex].belongTo == this.id) {
+          cards[cardIndex]["id"] = cardIndex;
           this.cards.push(cards[cardIndex]);
         }
       }
