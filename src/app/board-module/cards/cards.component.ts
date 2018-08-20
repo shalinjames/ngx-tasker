@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs";
 
-import { Card } from "../../types";
+import { CardState } from "../../store/cards.state";
+import { Card, Cards } from "../../types";
 
 @Component({
   selector: "ngxtasker-cards",
@@ -9,13 +11,23 @@ import { Card } from "../../types";
   styleUrls: ["./cards.component.css"]
 })
 export class CardsComponent implements OnInit {
-  @Input() cardId: string;
-  @Input() card: Card;
-  constructor(private store: Store) {}
+  @Input() listId: string;
+
+  constructor(private store: Store) { }
+
+  @Select(CardState.getCards)
+
+  cards$: Observable<Cards>;
+
+  public cards;
 
   saveCardTitle(newTitle) {
     console.log(newTitle);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cards$.subscribe(cards =>
+      this.cards = Object.values(cards).filter(card => card.belongTo === this.listId)
+    );
+  }
 }

@@ -7,7 +7,7 @@
   </mat-card-header>
   <mat-divider [inset]="true" class="seperator"></mat-divider>
   <mat-card-content class="contents">
-    <ngxtasker-cards *ngFor="let card of cards" [cardId]="card.id" [card]="card"></ngxtasker-cards>
-    <ngxtasker-add-card></ngxtasker-add-card>
+    <ngxtasker-cards [listId]="id"></ngxtasker-cards>
+    <ngxtasker-add-card [listId]="id"></ngxtasker-add-card>
   </mat-card-content>
 </mat-card>

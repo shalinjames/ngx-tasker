@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Store, Select, NgxsOnInit } from "@ngxs/store";
+import { Component, Input } from "@angular/core";
+import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs";
 
 import { ListEntry, Cards } from "../../../types";
@@ -11,7 +11,7 @@ import { CardState } from "../../../store/cards.state";
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.css"]
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   @Input() list: ListEntry;
   @Input() id: string;
 
@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   @Select(CardState.getCards) cards$: Observable<Cards>;
   public cards = [];
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   saveTitle(newTitle) {
     this.store
@@ -32,14 +32,4 @@ export class ListComponent implements OnInit {
     this.editTitle = !this.editTitle;
   }
 
-  ngOnInit() {
-    this.cards$.subscribe(cards => {
-      for (let cardIndex in cards) {
-        if (cards[cardIndex].belongTo == this.id) {
-          cards[cardIndex]["id"] = cardIndex;
-          this.cards.push(cards[cardIndex]);
-        }
-      }
-    });
-  }
 }

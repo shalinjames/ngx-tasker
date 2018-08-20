@@ -1,5 +1,7 @@
 <div class="add-new-card">
-  <button mat-fab color="primary">
+  <button *ngIf="!openTextInput" class="add-card-btn" color="primary" mat-icon-button (click)="toggleCardTextEdit()">
     <mat-icon>add</mat-icon>
   </button>
+  <input *ngIf="openTextInput" type="text" #newCardTitle class="input-card-name" autofocus type="text" placeholder="New Card Title"
+    (keyup.enter)="saveNewCardTitle(newCardTitle.value)" (keyup.escape)="toggleCardTextEdit()" />
 </div>

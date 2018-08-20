@@ -1,5 +1,4 @@
 export class Card {
-  id: string;
   title: string;
   belongTo: string;
 }

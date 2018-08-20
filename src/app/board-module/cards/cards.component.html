@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" *ngFor="let card of cards">
   <mat-card-header class="header">
     <mat-card-title class="title">
       <ngx-tasker-inline-text-editor [value]="card.title" (newvalue)="saveCardTitle($event)">

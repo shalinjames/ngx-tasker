@@ -1,16 +1,9 @@
-import {
-  State,
-  Action,
-  StateContext,
-  NgxsOnInit,
-  Selector,
-  Store,
-  Select
-} from "@ngxs/store";
+import { State, Action, StateContext, Selector } from "@ngxs/store";
 import produce from "immer";
+import uuidv4 from "uuid/v4";
 
 import { Cards } from "../types";
-import { AppUserState } from "./app.user.state";
+import { AddCard } from "./cards.action";
 
 export class CardStateModel {
   cards: Cards;
@@ -30,4 +23,20 @@ export class CardState {
   }
 
   //@Todo: https://github.com/ngxs/store/issues/386#issuecomment-390181710 dynamic @selector arguments for selecting the cards for a specific list
+
+  @Action(AddCard)
+  addCard(
+    { getState, patchState }: StateContext<CardStateModel>,
+    action: AddCard
+  ) {
+    const uniqueId = uuidv4();
+    patchState(
+      produce(getState(), draft => {
+        draft.cards[uniqueId] = {
+          title: action.title,
+          belongTo: action.listId
+        };
+      })
+    );
+  }
 }
