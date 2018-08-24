@@ -1,8 +1,10 @@
 import { Component, Input } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs";
 
-import { ListEntry } from "../../../types";
+import { ListEntry, Cards } from "../../../types";
 import { UpdateListTitle } from "../../../store/list.action";
+import { CardState } from "../../../store/cards.state";
 
 @Component({
   selector: "ngx-tasker-list",
@@ -15,7 +17,10 @@ export class ListComponent {
 
   public editTitle = false;
 
-  constructor(private store: Store) {}
+  @Select(CardState.getCards) cards$: Observable<Cards>;
+  public cards = [];
+
+  constructor(private store: Store) { }
 
   saveTitle(newTitle) {
     this.store
@@ -26,4 +31,5 @@ export class ListComponent {
   toggleEditTitle() {
     this.editTitle = !this.editTitle;
   }
+
 }

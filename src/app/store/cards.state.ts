@@ -1,27 +1,42 @@
-import {
-  State,
-  Action,
-  StateContext,
-  NgxsOnInit,
-  Selector,
-  Store,
-  Select
-} from "@ngxs/store";
+import { State, Action, StateContext, Selector } from "@ngxs/store";
 import produce from "immer";
+import uuidv4 from "uuid/v4";
 
-import { BoardListService } from "../webservices/boardlist/board-list.service";
+import { Cards } from "../types";
+import { AddCard } from "./cards.action";
 
 export class CardStateModel {
-  cards: Object;
+  cards: Cards;
 }
 
 @State<CardStateModel>({
-  name: "cardState",
+  name: "cards",
   defaults: {
     cards: {}
   }
 })
 export class CardState {
-  constructor(private boardListSer: BoardListService, private store: Store) {}
-  //@Select()
+  constructor() {}
+  @Selector()
+  static getCards(state: CardStateModel) {
+    return state.cards;
+  }
+
+  //@Todo: https://github.com/ngxs/store/issues/386#issuecomment-390181710 dynamic @selector arguments for selecting the cards for a specific list
+
+  @Action(AddCard)
+  addCard(
+    { getState, patchState }: StateContext<CardStateModel>,
+    action: AddCard
+  ) {
+    const uniqueId = uuidv4();
+    patchState(
+      produce(getState(), draft => {
+        draft.cards[uniqueId] = {
+          title: action.title,
+          belongTo: action.listId
+        };
+      })
+    );
+  }
 }

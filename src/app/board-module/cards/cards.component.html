@@ -1,13 +1,12 @@
-<mat-card class="list-card">
+<mat-card class="card" *ngFor="let card of cards">
   <mat-card-header class="header">
     <mat-card-title class="title">
-      <ngx-tasker-inline-text-editor [value]="list.title" (newvalue)="saveTitle($event)">
+      <ngx-tasker-inline-text-editor [value]="card.title" (newvalue)="saveCardTitle($event)">
       </ngx-tasker-inline-text-editor>
     </mat-card-title>
   </mat-card-header>
   <mat-divider [inset]="true" class="seperator"></mat-divider>
   <mat-card-content class="contents">
-    <ngxtasker-cards [listId]="id"></ngxtasker-cards>
-    <ngxtasker-add-card [listId]="id"></ngxtasker-add-card>
+    Some desc
   </mat-card-content>
 </mat-card>

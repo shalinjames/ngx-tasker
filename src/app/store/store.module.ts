@@ -8,11 +8,18 @@ import { UserState } from "./user.state";
 import { BoardState } from "./board.state";
 import { ListState } from "./list.state";
 import { AppUserState } from "./app.user.state";
+import { CardState } from "./cards.state";
 
 @NgModule({
   imports: [
     CommonModule,
-    NgxsModule.forRoot([UserState, AppUserState, BoardState, ListState]),
+    NgxsModule.forRoot([
+      UserState,
+      AppUserState,
+      BoardState,
+      ListState,
+      CardState
+    ]),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],

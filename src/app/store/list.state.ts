@@ -1,11 +1,9 @@
 import {
   State,
   Action,
-  StateContext,
-  NgxsOnInit,
+  StateContext,  
   Selector,
-  Store,
-  Select
+  Store
 } from "@ngxs/store";
 import produce from "immer";
 import uuidv4 from "uuid/v4";
@@ -14,7 +12,6 @@ import { List } from "../types";
 import { UpdateListTitle, AddListType } from "./list.action";
 import { AddListTypeToBoard } from "./board.actions";
 import { AppUserState } from "./app.user.state";
-import { Observable } from "../../../node_modules/rxjs";
 
 export class ListStateModel {
   list: List;

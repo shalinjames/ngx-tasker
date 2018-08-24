@@ -3,6 +3,7 @@
   background: rgba(1, 1, 1, 0.03);
   margin: 0.8rem;
   width: 15rem;
+  vertical-align: top;
 }
 .list-card .header {
   cursor: pointer;
