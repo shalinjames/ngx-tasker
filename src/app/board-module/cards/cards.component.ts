@@ -20,19 +20,20 @@ export class CardsComponent implements OnInit {
   @Select(CardState.getCards)
   cards$: Observable<Cards>;
 
-  public cards = {};
+  public cards = [];
 
   saveCardTitle(newTitle, card) {
-    this.store.dispatch(new UpdateCardTitle(newTitle, card.key));
+    this.store.dispatch(new UpdateCardTitle(newTitle, card.id));
   }
 
   ngOnInit() {
     this.cards$.subscribe(cards => {
-      for (let cardId in cards) {
+      this.cards = [];
+      Object.keys(cards).map((cardId) => {
         if (cards[cardId].belongTo === this.listId) {
-          this.cards[cardId] = cards[cardId];
+          this.cards.push({ ...cards[cardId], id: cardId })
         }
-      }
+      })
     });
   }
 }
