@@ -1,5 +1,11 @@
 export class AddCard {
   static readonly type = "[Card] Add new card to the list";
 
-  constructor(public title: string, public listId: string) {}
+  constructor(public title: string, public listId: string) { }
+}
+
+export class UpdateCardTitle {
+  static readonly type = "[Card] Edit card title";
+
+  constructor(public title: string, public cardId: string) { }
 }

@@ -3,7 +3,7 @@ import produce from "immer";
 import uuidv4 from "uuid/v4";
 
 import { Cards } from "../types";
-import { AddCard } from "./cards.action";
+import { AddCard, UpdateCardTitle } from "./cards.action";
 
 export class CardStateModel {
   cards: Cards;
@@ -16,7 +16,7 @@ export class CardStateModel {
   }
 })
 export class CardState {
-  constructor() {}
+  constructor() { }
   @Selector()
   static getCards(state: CardStateModel) {
     return state.cards;
@@ -36,6 +36,18 @@ export class CardState {
           title: action.title,
           belongTo: action.listId
         };
+      })
+    );
+  }
+
+  @Action(UpdateCardTitle)
+  updateCardTitle(
+    { getState, patchState }: StateContext<CardStateModel>,
+    action: UpdateCardTitle
+  ) {
+    patchState(
+      produce(getState(), draft => {
+        draft.cards[action.cardId].title = action.title;
       })
     );
   }
