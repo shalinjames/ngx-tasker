@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 import { CardState } from "../../store/cards.state";
 import { Card, Cards } from "../../types";
-import { EditCardTitle } from "../../store/cards.action";
+import { UpdateCardTitle } from "../../store/cards.action";
 
 @Component({
   selector: "ngxtasker-cards",
@@ -15,7 +15,7 @@ export class CardsComponent implements OnInit {
   @Input()
   listId: string;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   @Select(CardState.getCards)
   cards$: Observable<Cards>;
@@ -23,7 +23,7 @@ export class CardsComponent implements OnInit {
   public cards = {};
 
   saveCardTitle(newTitle, card) {
-    this.store.dispatch(new EditCardTitle(newTitle, card.key));
+    this.store.dispatch(new UpdateCardTitle(newTitle, card.key));
   }
 
   ngOnInit() {
