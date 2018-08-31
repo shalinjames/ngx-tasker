@@ -16,7 +16,7 @@ export class CardStateModel {
   }
 })
 export class CardState {
-  constructor() { }
+  constructor() {}
   @Selector()
   static getCards(state: CardStateModel) {
     return state.cards;

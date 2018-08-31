@@ -15,10 +15,12 @@ export class CardsComponent implements OnInit {
   @Input()
   listId: string;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   @Select(CardState.getCards)
   cards$: Observable<Cards>;
+
+  public showDescTextArea: boolean = false;
 
   public cards = [];
 
@@ -26,14 +28,20 @@ export class CardsComponent implements OnInit {
     this.store.dispatch(new UpdateCardTitle(newTitle, card.id));
   }
 
+  updateDescription(newDescription) {}
+
+  toggleDescUpdate() {
+    this.showDescTextArea = !this.showDescTextArea;
+  }
+
   ngOnInit() {
     this.cards$.subscribe(cards => {
       this.cards = [];
-      Object.keys(cards).map((cardId) => {
+      Object.keys(cards).map(cardId => {
         if (cards[cardId].belongTo === this.listId) {
-          this.cards.push({ ...cards[cardId], id: cardId })
+          this.cards.push({ ...cards[cardId], id: cardId });
         }
-      })
+      });
     });
   }
 }

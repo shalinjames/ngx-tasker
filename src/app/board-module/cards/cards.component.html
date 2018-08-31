@@ -7,6 +7,9 @@
   </mat-card-header>
   <mat-divider [inset]="true" class="seperator"></mat-divider>
   <mat-card-content class="contents">
-    {{card.desc}}
+    <span (click)="card.open=true;" *ngIf="!card.open">{{card.desc}}</span>
+    <mat-form-field *ngIf="card.open">
+      <textarea matInput #newDesc placeholder="">{{card.desc}}</textarea>
+    </mat-form-field>
   </mat-card-content>
 </mat-card>
