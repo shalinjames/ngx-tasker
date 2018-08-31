@@ -24,10 +24,26 @@
       "list4": { "title": "List 4", "belongTo": "2" }
     },
     "cards": {
-      "card1": { "title": "Card 12312", "belongTo": "list1" },
-      "card2": { "title": "Card 12312234", "belongTo": "list2" },
-      "card3": { "title": "Card sfsdf2", "belongTo": "list1" },
-      "card4": { "title": "Card 1dgsdfhs234", "belongTo": "list2" }
+      "card1": {
+        "title": "Card 12312",
+        "belongTo": "list1",
+        "desc": "this is the desc of card1"
+      },
+      "card2": {
+        "title": "Card 12312234",
+        "belongTo": "list2",
+        "desc": "this is the desc of card2"
+      },
+      "card3": {
+        "title": "Card sfsdf2",
+        "belongTo": "list1",
+        "desc": "this is the desc of card3"
+      },
+      "card4": {
+        "title": "Card 1dgsdfhs234",
+        "belongTo": "list2",
+        "desc": "this is the desc of card4"
+      }
     }
   }
 }
